@@ -17,10 +17,10 @@ export class ElasticsearchService {
     }
   };
   private connect() {
-    let bonsai_url = process.env.BONSAI_URL;
+    let bonsai_url = process.env.BONSAI_MAUVE_URL;
     console.log(bonsai_url);
     this.client = new Client({
-      host: bonsai_url,
+      host: 'https://t94rq2x4vr:kpq8iym6c4@yew-925371879.eu-west-1.bonsaisearch.net',
     });
   }
 

@@ -27,7 +27,7 @@ export class PresentationComponent implements OnInit {
     }).then(() => {
       this.cd.detectChanges();
     });
-    this.es.getAllDocuments('characters', '_doc')
+    this.es.getAllDocuments('characters', '1')
       .then(response => {
         this.chars = response.hits.hits;
         console.log(this.chars);
