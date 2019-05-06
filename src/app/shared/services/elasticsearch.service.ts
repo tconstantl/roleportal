@@ -17,9 +17,10 @@ export class ElasticsearchService {
     }
   };
   private connect() {
+    let bonsai_url = process.env.BONSAI_URL;
+    console.log(bonsai_url);
     this.client = new Client({
-      host: 'http://localhost:9200',
-      log: 'trace'
+      host: bonsai_url,
     });
   }
 

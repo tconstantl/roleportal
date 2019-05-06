@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Character, SecondaryStat} from '../shared/models/character';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
+import {response} from 'express';
 
 @Component({
   selector: 'app-presentation',
@@ -10,6 +11,7 @@ import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 export class PresentationComponent implements OnInit {
   isConnected = false;
   status: string;
+  chars;
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef) {
     this.isConnected = false;
@@ -25,6 +27,13 @@ export class PresentationComponent implements OnInit {
     }).then(() => {
       this.cd.detectChanges();
     });
+    this.es.getAllDocuments('characters', '_doc')
+      .then(response => {
+        this.chars = response.hits.hits;
+        console.log(this.chars);
+      }, error => {
+        console.error(error);
+      });
    /* this.es.addToIndex({
       index: 'characters',
       type: '_doc',
@@ -46,7 +55,7 @@ export class PresentationComponent implements OnInit {
 }
 
 
-
-function isLol(element, index, array) {
-  return (element.category === 'lol');
-}
+//
+// function isLol(element, index, array) {
+//   return (element.category === 'lol');
+// }

@@ -20,7 +20,6 @@
     "@angular-devkit/build-angular": "^0.13.8",
     "@angular/animations": "^7.2.9",
     "@angular/cdk": "^7.3.4",
-    "elasticsearch-browser": "^15.1.1",
     "@angular/cli": "7.3.5",
     "@angular/common": "^7.2.9",
     "@angular/compiler": "^7.2.9",
@@ -38,6 +37,7 @@
     "@types/socket.io": "^2.1.2",
     "codelyzer": "^5.0.0-beta.0",
     "core-js": "^2.6.5",
+    "elasticsearch": "^16.0.0",
     "express": "^4.16.4",
     "gulp": "^4.0.0",
     "gulp-typescript": "^5.0.0",
@@ -51,7 +51,8 @@
     "tslint": "^5.13.1",
     "typescript": "^3.1.6",
     "webpack": "^4.29.6",
-    "zone.js": "^0.8.29"
+    "zone.js": "^0.8.29",
+    "elasticsearch-browser": "latest"
   },
   "devDependencies": {
     "@angular/language-service": "^7.2.9",
