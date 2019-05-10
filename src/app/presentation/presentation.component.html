@@ -1,17 +1,11 @@
 <mat-card class="app-home">
-  <mat-card-title>
-    Bienvenue sur Role Portal
-  </mat-card-title>
-  <mat-card-subtitle>
-    Service de support pour JdR quali
-  </mat-card-subtitle>
+
   <mat-card-content>
     <p>N'hésitez pas à donner de un max d'argent à Thibaut, c'est un mec bien.</p>
     <p>Server's status : {{status}}</p>
     <p>Database's content : {{chars}}</p>
     <p *ngFor="let char of chars">Nom : {{char._source.name}}, Classe : {{char._source.class}}</p>
   </mat-card-content>
-  <img mat-card-image src="../../assets/img/cthulhu-artwork.jpeg">
   <mat-card-content>
     Développé par Toutatis
   </mat-card-content>

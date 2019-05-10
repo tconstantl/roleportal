@@ -1,5 +1,15 @@
-<mat-sidenav-container>
-  <div fxLayout="column" fxLayoutAlign="start center">
-    <router-outlet></router-outlet>
+<div class="presentation-header mat-title" fxLayout="column" fxLayoutAlign="start center">
+  <h1>Bienvenue sur Role Portal</h1>
+  <h2>Service de support pour JdR quali</h2>
+</div>
+<div class="app-container" fxLayout="column" fxLayoutAlign="start center">
+  <div class="app-content">
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <mat-sidenav-container class="sidenav-container">
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-container>
+    </div>
   </div>
-</mat-sidenav-container>
+</div>
