@@ -30,7 +30,6 @@ export class PresentationComponent implements OnInit {
     this.es.getAllDocuments('characters', '1')
       .then(response => {
         this.chars = response.hits.hits;
-        console.log(this.chars);
       }, error => {
         console.error(error);
       });
