@@ -1,0 +1,54 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <h2>
+    Time to create a new character
+  </h2>
+  <div class="form-container">
+    <form [formGroup]="newguyForm" fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutGap="12px">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="JanLouie" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Class</mat-label>
+        <mat-select formControlName="class" required>
+          <mat-option *ngFor="let class of classes" [value]="class._source.valueName">
+            {{class._source.viewName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput placeholder="20" type="number" formControlName="age" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Level</mat-label>
+        <input matInput placeholder="1" type="number" formControlName="level" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Gender</mat-label>
+        <input matInput placeholder="Not assumed" formControlName="gender" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Race</mat-label>
+        <input matInput placeholder="Human" formControlName="race" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Hair color</mat-label>
+        <input matInput placeholder="Blond" formControlName="hair_color" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Eyes color</mat-label>
+        <input matInput placeholder="Blue" formControlName="eyes_color" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Appearance</mat-label>
+        <input matInput placeholder="5" type="number" formControlName="appearance" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Size</mat-label>
+        <input matInput placeholder="10" type="number" formControlName="size" required>
+      </mat-form-field>
+    </form>
+  </div>
+  <button mat-raised-button class="submit-button" type="submit" (click)="submitCharacter()" [disabled]="!newguyForm.valid">Submit</button>
+</div>

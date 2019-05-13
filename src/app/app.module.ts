@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatTabsModule, MatList, MatListModule, MatDialog, MatDialogModule
+  MatSidenavModule, MatTabsModule, MatListModule, MatDialog, MatDialogModule, MatSelectModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PresentationComponent } from './presentation/presentation.component';
@@ -16,6 +16,7 @@ import {SocketService} from './live-chat/shared/services/socket.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DialogUserComponent} from './live-chat/dialog-user/dialog-user.component';
 import {LiveChatModule} from "./live-chat/live-chat.module";
+import { NewguyComponent } from './newguy/newguy.component';
 
 
 
@@ -24,7 +25,8 @@ import {LiveChatModule} from "./live-chat/live-chat.module";
   declarations: [
     AppComponent,
     PresentationComponent,
-    HomeComponent
+    HomeComponent,
+    NewguyComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,9 @@ import {LiveChatModule} from "./live-chat/live-chat.module";
     FormsModule,
     MatDialogModule,
     ReactiveFormsModule,
-    LiveChatModule
+    LiveChatModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [SocketService, MatDialog],
   entryComponents: [DialogUserComponent],
