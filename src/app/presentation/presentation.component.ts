@@ -2,6 +2,9 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Character, SecondaryStat} from '../shared/models/character';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {response} from 'express';
+import {firebase} from 'firebaseui-angular';
+import {AuthService} from '../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-presentation',
@@ -12,43 +15,33 @@ export class PresentationComponent implements OnInit {
   isConnected = false;
   status: string;
   chars;
+  userId = '';
 
-  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef) {
+  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private router: Router) {
     this.isConnected = false;
+    this.userId = '';
   }
   ngOnInit() {
-    this.es.isAvailable().then(() => {
-      this.status = 'OK';
-      this.isConnected = true;
-    }, error => {
-      this.status = 'ERROR';
-      this.isConnected = false;
-      console.error('Server is down', error);
-    }).then(() => {
-      this.cd.detectChanges();
-    });
-    this.es.getAllDocuments('characters', '_doc')
+        this.es.getAllDocuments('characters', '_doc')
       .then(response => {
         this.chars = response.hits.hits;
       }, error => {
         console.error(error);
       });
-   /* this.es.addToIndex({
-      index: 'characters',
-      type: '_doc',
-      id: '1234',
-      body: {
-        name: 'bob',
-        class: 'eude',
-        age: '87'
+    this.as.isLoggedIn().subscribe(
+      (user) => {
+        if (!user) {
+          this.router.navigate(['/home']);
+        } else {
+          this.userId = user.email;
+          console.log(this.userId);
+        }
       }
-    }).then((result) => {
-      console.log(result);
-      alert('Document added, see logs');
-    }, error => {
-      alert('Oopsies, we made a doozies');
-      console.error(error);
-    });*/
+    );
+  }
+
+  logOut() {
+    firebase.auth().signOut();
   }
 
 }
@@ -58,3 +51,5 @@ export class PresentationComponent implements OnInit {
 // function isLol(element, index, array) {
 //   return (element.category === 'lol');
 // }
+
+

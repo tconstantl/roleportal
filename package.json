@@ -17,7 +17,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.13.8",
+    "@angular-devkit/build-angular": "^0.13.9",
     "@angular/animations": "^7.2.9",
     "@angular/cdk": "^7.3.4",
     "@angular/cli": "7.3.5",
@@ -25,6 +25,7 @@
     "@angular/compiler": "^7.2.9",
     "@angular/compiler-cli": "^7.2.9",
     "@angular/core": "^7.2.9",
+    "@angular/fire": "^5.1.3",
     "@angular/flex-layout": "^7.0.0-beta.23",
     "@angular/forms": "^7.2.9",
     "@angular/http": "^7.2.9",
@@ -38,7 +39,11 @@
     "codelyzer": "^5.0.0-beta.0",
     "core-js": "^2.6.5",
     "elasticsearch": "^16.0.0",
+    "elasticsearch-browser": "latest",
     "express": "^4.16.4",
+    "firebase": "^6.0.2",
+    "firebaseui": "^3.6.1",
+    "firebaseui-angular": "^3.4.1",
     "gulp": "^4.0.0",
     "gulp-typescript": "^5.0.0",
     "node-sass": "^4.12.0",
@@ -51,8 +56,7 @@
     "tslint": "^5.13.1",
     "typescript": "^3.1.6",
     "webpack": "^4.29.6",
-    "zone.js": "^0.8.29",
-    "elasticsearch-browser": "latest"
+    "zone.js": "^0.8.29"
   },
   "devDependencies": {
     "@angular/language-service": "^7.2.9",

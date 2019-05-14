@@ -15,12 +15,26 @@ import { HomeComponent } from './home/home.component';
 import {SocketService} from './live-chat/shared/services/socket.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DialogUserComponent} from './live-chat/dialog-user/dialog-user.component';
-import {LiveChatModule} from "./live-chat/live-chat.module";
+import {LiveChatModule} from './live-chat/live-chat.module';
 import { NewguyComponent } from './newguy/newguy.component';
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {AuthService} from './shared/services/auth.service';
 
-
-
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    {
+      requireDisplayName: false,
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
+    }
+  ],
+  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,9 +62,12 @@ import { NewguyComponent } from './newguy/newguy.component';
     ReactiveFormsModule,
     LiveChatModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
-  providers: [SocketService, MatDialog],
+  providers: [SocketService, MatDialog, AuthService],
   entryComponents: [DialogUserComponent],
   bootstrap: [AppComponent]
 })

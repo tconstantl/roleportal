@@ -12,8 +12,6 @@ export class ElasticsearchService {
     }
   }
   private queryalldocs = {
-    'from': 0,
-    'size': 10000,
     'query': {
       'match_all': {}
     }
@@ -48,6 +46,7 @@ export class ElasticsearchService {
       index: _index,
       type: _type,
       body: this.queryalldocs,
+      size: 10000,
       filterPath: ['hits.hits._source']
     });
   }
