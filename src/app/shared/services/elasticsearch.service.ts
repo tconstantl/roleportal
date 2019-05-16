@@ -50,4 +50,23 @@ export class ElasticsearchService {
       filterPath: ['hits.hits._source']
     });
   }
+
+  searchDocuments(_index, _type, _body): any {
+    return this.client.search({
+      index: _index,
+      type: _type,
+      body: _body,
+      size: 10000,
+      filterPath: ['hits.hits._source']
+    });
+  }
+
+
+  getDocument(_index, _type, _id): any {
+    return this.client.get({
+      index: _index,
+      type: _type,
+      id: _id
+    });
+  }
 }

@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~@angular/material/theming";
+@import "./app/home/home.component";
 
+.page-view {
+  margin-top: 36px;
+}

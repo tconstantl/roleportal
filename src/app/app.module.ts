@@ -23,6 +23,8 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {AuthService} from './shared/services/auth.service';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -40,7 +42,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     PresentationComponent,
     HomeComponent,
-    NewguyComponent
+    NewguyComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    LayoutModule
   ],
   providers: [SocketService, MatDialog, AuthService],
   entryComponents: [DialogUserComponent],
