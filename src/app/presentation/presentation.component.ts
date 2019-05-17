@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {AuthService} from '../shared/services/auth.service';
-import {Router} from '@angular/router';
 import {User} from 'firebase';
 import {Character} from '../shared/models/character';
 
@@ -14,7 +13,7 @@ export class PresentationComponent implements OnInit {
   user: User;
   userChar: Character;
 
-  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private router: Router) {}
+  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService) {}
   ngOnInit() {
    this.as.getUser().subscribe((user) => {
      this.user = user;
@@ -28,6 +27,7 @@ export class PresentationComponent implements OnInit {
         this.userChar = response._source;
         console.log(this.userChar);
       }, error => {
+        this.userChar = new Character();
         console.error(error);
       }
     );

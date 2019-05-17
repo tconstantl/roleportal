@@ -1,9 +1,66 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-  <mat-card>
-    <div fxLayout="column" fxLayoutAlign="start center">
+  <mat-card class="character-sheet-container">
+    <mat-card-header>
       <mat-card-title>
-        Character presentation
+        {{userChar.name}} character's sheet
       </mat-card-title>
-    </div>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+      <div fxFlexFill>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="50%" class="stat-container">
+            <p class="stat-name">Class :</p>
+            <p class="stat-value">{{userChar.class}}</p>
+          </div>
+          <div fxFlex="50%" class="stat-container">
+            <p class="stat-name">Age :</p>
+            <p class="stat-value">{{userChar.age}}</p>
+          </div>
+        </div>
+      </div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div fxFlexFill>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+          <div fxFlex="50%" class="stat-container">
+            Level : {{userChar.level}}
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div fxFlex="50%" class="stat-container">
+            Gender : {{userChar.gender}}
+          </div>
+        </div>
+      </div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div fxFlexFill>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+          <div fxFlex="50%" class="stat-container">
+            Appearance : {{userChar.appearance}}
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div fxFlex="50%" class="stat-container">
+            Size : {{userChar.size}}
+          </div>
+        </div>
+      </div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div fxFlexFill>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex="50%" class="stat-container">
+            Hair color : {{userChar.hair_color}}
+          </div>
+          <div fxFlex="50%" class="stat-container">
+            Eyes color : {{userChar.eyes_color}}
+          </div>
+        </div>
+      </div>
+      <mat-divider [inset]="true"></mat-divider>
+      <div fxFlexFill>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div class="stat-container">
+            Race : {{userChar.race}}
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>

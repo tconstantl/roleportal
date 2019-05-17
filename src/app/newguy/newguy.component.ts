@@ -35,6 +35,7 @@ export class NewguyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.newguyForm.disable();
   }
 
   submitCharacter() {
