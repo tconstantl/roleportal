@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
-import {firebase} from 'firebaseui-angular';
 import {AuthService} from '../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {User} from 'firebase';
@@ -35,11 +34,4 @@ export class PresentationComponent implements OnInit {
   }
 
 }
-
-
-//
-// function isLol(element, index, array) {
-//   return (element.category === 'lol');
-// }
-
 

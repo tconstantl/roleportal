@@ -34,7 +34,6 @@ export class MainNavComponent implements OnInit {
       }
     );
   }
-
   logout() {
     firebase.auth().signOut();
     this.router.navigate(['/home']);

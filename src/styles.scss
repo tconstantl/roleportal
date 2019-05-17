@@ -3,9 +3,10 @@
 @import "~@angular/material/theming";
 @import "./app/home/home.component";
 @import "app/app.component.css";
+@import "app/newguy/newguy.component";
 
 .view-container {
-  width: 75%;
+  width: 100%;
 }
 
 html, body {

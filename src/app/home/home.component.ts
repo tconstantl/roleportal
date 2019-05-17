@@ -8,7 +8,7 @@ import {AuthService} from '../shared/services/auth.service';
 export class HomeComponent implements OnInit {
 
   loggedIn = false;
-  userEmail = '';
+  userDisplayName = '';
 
   constructor(private as: AuthService) {
     this.loggedIn = false;
@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
     this.as.getUser().subscribe((user) => {
       if (user) {
         this.loggedIn = true;
-        this.userEmail = user.email;
+        this.userDisplayName = user.displayName;
+      } else {
+        this.loggedIn = false;
       }
     });
   }

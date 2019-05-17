@@ -6,8 +6,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-newguy',
-  templateUrl: './newguy.component.html',
-  styleUrls: ['./newguy.component.scss']
+  templateUrl: './newguy.component.html'
 })
 export class NewguyComponent implements OnInit {
   classes = [];

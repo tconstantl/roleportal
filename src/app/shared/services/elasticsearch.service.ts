@@ -11,11 +11,7 @@ export class ElasticsearchService {
       this.connect();
     }
   }
-  private queryalldocs = {
-    'query': {
-      'match_all': {}
-    }
-  };
+
   private connect() {
     // let bonsai_url = process.env.BONSAI_MAUVE_URL;
     // console.log(bonsai_url);
@@ -24,15 +20,6 @@ export class ElasticsearchService {
     });
   }
 
-  isAvailable(): any {
-    return this.client.ping({
-      requestTimeout: Infinity,
-      body: 'hello there !'
-    });
-  }
-  // addToIndex(value): any {
-  //   return this.client.create(value);
-  // }
   addToIndex(index, value): any {
     return this.client.index({
       index: index,
@@ -45,7 +32,7 @@ export class ElasticsearchService {
     return this.client.search({
       index: _index,
       type: _type,
-      body: this.queryalldocs,
+      body: { 'query': {  'match_all': {}} },
       size: 10000,
       filterPath: ['hits.hits._source']
     });
