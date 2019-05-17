@@ -2,7 +2,20 @@
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "~@angular/material/theming";
 @import "./app/home/home.component";
+@import "app/app.component.css";
 
-.page-view {
-  margin-top: 36px;
+.view-container {
+  width: 75%;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.spacer {
+  flex : 1 1 auto;
 }

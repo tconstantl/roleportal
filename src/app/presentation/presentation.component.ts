@@ -3,6 +3,8 @@ import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {firebase} from 'firebaseui-angular';
 import {AuthService} from '../shared/services/auth.service';
 import {Router} from '@angular/router';
+import {User} from 'firebase';
+import {Character} from '../shared/models/character';
 
 @Component({
   selector: 'app-presentation',
@@ -10,33 +12,21 @@ import {Router} from '@angular/router';
   styleUrls: ['./presentation.component.scss']
 })
 export class PresentationComponent implements OnInit {
-  userId = '';
-  userChar;
+  user: User;
+  userChar: Character;
 
-  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private router: Router) {
-    this.userId = '';
-  }
+  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private router: Router) {}
   ngOnInit() {
-    this.as.isLoggedIn().subscribe(
-      (user) => {
-        if (!user) {
-          this.router.navigate(['/home']);
-        } else {
-          this.userId = user.email;
-         this.fetchUserChara();
-        }
-      }
-    );
+   this.as.getUser().subscribe((user) => {
+     this.user = user;
+     this.fetchUserChara(user.uid);
+   });
   }
 
-  logOut() {
-    firebase.auth().signOut();
-  }
-
-  fetchUserChara() {
-    this.es.getDocument('characters', '_doc', 'nUFFsGoBzivQ-Ev_vsYq')
+  fetchUserChara(id) {
+    this.es.getDocument('characters', '_doc', id)
       .then(response => {
-        this.userChar = response;
+        this.userChar = response._source;
         console.log(this.userChar);
       }, error => {
         console.error(error);
