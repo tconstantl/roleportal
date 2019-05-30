@@ -6,8 +6,20 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule,
-  MatSidenavModule, MatTabsModule, MatListModule, MatDialog, MatDialogModule, MatSelectModule
+  MatCardModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSidenavModule,
+  MatTabsModule,
+  MatListModule,
+  MatDialog,
+  MatDialogModule,
+  MatSelectModule,
+  MatProgressSpinnerModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PresentationComponent } from './presentation/presentation.component';
@@ -25,6 +37,7 @@ import {environment} from '../environments/environment';
 import {AuthService} from './shared/services/auth.service';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -69,7 +82,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
-    LayoutModule
+    LayoutModule,
+    MatProgressSpinnerModule,
+    FontAwesomeModule,
+    MatSlideToggleModule
   ],
   providers: [SocketService, MatDialog, AuthService],
   entryComponents: [DialogUserComponent],

@@ -1,66 +1,69 @@
 <div fxLayout="column" fxLayoutAlign="start center">
-  <mat-card class="character-sheet-container">
+  <mat-spinner class="loadingSpinner" *ngIf="loadingChar"></mat-spinner>
+  <mat-card class="character-sheet-container" *ngIf="!loadingChar">
     <mat-card-header>
       <mat-card-title>
         {{userChar.name}} character's sheet
       </mat-card-title>
     </mat-card-header>
     <mat-card-content fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="12px">
-      <div fxFlexFill>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <div fxFlex="50%" class="stat-container">
-            <p class="stat-name">Class :</p>
-            <p class="stat-value">{{userChar.class}}</p>
-          </div>
-          <div fxFlex="50%" class="stat-container">
-            <p class="stat-name">Age :</p>
-            <p class="stat-value">{{userChar.age}}</p>
-          </div>
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <h2>
+          Time to create a new character
+        </h2>
+        <div class="form-container">
+          <form [formGroup]="newguyForm" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="12px">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input matInput placeholder="JanLouie" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Class</mat-label>
+              <mat-select formControlName="class" required>
+                <mat-option *ngFor="let class of classes" [value]="class._source.valueName">
+                  {{class._source.viewName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Age</mat-label>
+              <input matInput placeholder="20" type="number" formControlName="age" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Level</mat-label>
+              <input matInput placeholder="1" type="number" formControlName="level" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Gender</mat-label>
+              <input matInput placeholder="Not assumed" formControlName="gender" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Race</mat-label>
+              <input matInput placeholder="Human" formControlName="race" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Hair color</mat-label>
+              <input matInput placeholder="Blond" formControlName="hair_color" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Eyes color</mat-label>
+              <input matInput placeholder="Blue" formControlName="eyes_color" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Appearance</mat-label>
+              <input matInput placeholder="5" type="number" formControlName="appearance" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Size</mat-label>
+              <input matInput placeholder="10" type="number" formControlName="size" required>
+            </mat-form-field>
+          </form>
         </div>
-      </div>
-      <mat-divider [inset]="true"></mat-divider>
-      <div fxFlexFill>
-        <div fxLayout="row" fxLayoutAlign="space-evenly center">
-          <div fxFlex="50%" class="stat-container">
-            Level : {{userChar.level}}
-          </div>
-          <mat-divider [vertical]="true"></mat-divider>
-          <div fxFlex="50%" class="stat-container">
-            Gender : {{userChar.gender}}
-          </div>
-        </div>
-      </div>
-      <mat-divider [inset]="true"></mat-divider>
-      <div fxFlexFill>
-        <div fxLayout="row" fxLayoutAlign="space-evenly center">
-          <div fxFlex="50%" class="stat-container">
-            Appearance : {{userChar.appearance}}
-          </div>
-          <mat-divider [vertical]="true"></mat-divider>
-          <div fxFlex="50%" class="stat-container">
-            Size : {{userChar.size}}
-          </div>
-        </div>
-      </div>
-      <mat-divider [inset]="true"></mat-divider>
-      <div fxFlexFill>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <div fxFlex="50%" class="stat-container">
-            Hair color : {{userChar.hair_color}}
-          </div>
-          <div fxFlex="50%" class="stat-container">
-            Eyes color : {{userChar.eyes_color}}
-          </div>
-        </div>
-      </div>
-      <mat-divider [inset]="true"></mat-divider>
-      <div fxFlexFill>
-        <div fxLayout="row" fxLayoutAlign="center center">
-          <div class="stat-container">
-            Race : {{userChar.race}}
-          </div>
-        </div>
+        <button mat-raised-button class="submit-button" type="submit" (click)="submitCharacter()" [disabled]="!newguyForm.valid">Submit</button>
       </div>
     </mat-card-content>
+    <mat-card-actions>
+      <mat-slide-toggle color="primary" (change)="toggleChange()">Edit</mat-slide-toggle>
+    </mat-card-actions>
   </mat-card>
 </div>

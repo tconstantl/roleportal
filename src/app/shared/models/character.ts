@@ -1,8 +1,8 @@
 export class Character {
   name = 'new character';
   class = '';
-  age = 0;
-  level = 0;
+  age = 20;
+  level = 1;
   gender = 'not assumed';
   race = '';
   hair_color = '';

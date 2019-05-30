@@ -19,6 +19,7 @@
         (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <fa-icon [icon]="faDice20"></fa-icon>
       <span>Role Portal</span>
       <span class="spacer"></span>
       <button mat-raised-button *ngIf="loggedIn" (click)="logout()">Logout</button>

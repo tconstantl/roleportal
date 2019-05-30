@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import {AuthService} from '../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {firebase} from 'firebaseui-angular';
+import {faDiceD20} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'main-nav',
@@ -13,6 +14,7 @@ import {firebase} from 'firebaseui-angular';
 })
 export class MainNavComponent implements OnInit {
 
+  faDice20 = faDiceD20;
   loggedIn: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
