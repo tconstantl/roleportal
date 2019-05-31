@@ -79,17 +79,17 @@ export class PresentationComponent implements OnInit {
     if (!this.creating) {
       this.es.updateDocument('characters', this.userChar, this.user.uid).then((result) => {
         console.log(result);
-        alert('Character updated');
+        this.openSnackBar('Character updated', 'Ok tamer');
       }, error => {
-        alert('Oopsies, we made a doozies');
+        this.openSnackBar('Oopsies, we made a doozies', "':'()");
         console.error(error);
       });
     } else {
       this.es.addToIndex('characters', this.userChar, this.user.uid).then((result) => {
         console.log(result);
-        alert('Character updated');
+        this.openSnackBar('Character created', 'Ok tamer');
       }, error => {
-        alert('Oopsies, we made a doozies');
+        this.openSnackBar('Oopsies, we made a doozies', "':'()");
         console.error(error);
       });
     }
