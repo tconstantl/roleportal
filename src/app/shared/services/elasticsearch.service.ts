@@ -29,6 +29,17 @@ export class ElasticsearchService {
     });
   }
 
+  updateDocument(index, value, id): any {
+    return this.client.update({
+      index: index,
+      type: '_doc',
+      body: {
+        "doc" : value
+      },
+      id: id
+    });
+  }
+
   getAllDocuments(_index, _type): any {
     return this.client.search({
       index: _index,

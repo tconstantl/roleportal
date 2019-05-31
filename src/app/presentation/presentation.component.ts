@@ -71,11 +71,10 @@ export class PresentationComponent implements OnInit {
   }
 
   submitCharacter() {
-    const newguy = new Character();
-    Object.assign(newguy, this.newguyForm.value);
-    this.es.addToIndex('characters', JSON.stringify(newguy)).then((result) => {
+    Object.assign(this.userChar, this.newguyForm.value);
+    this.es.updateDocument('characters', this.userChar, this.user.uid).then((result) => {
       console.log(result);
-      alert('Character created, redirecting');
+      alert('Character updated');
     }, error => {
       alert('Oopsies, we made a doozies');
       console.error(error);
