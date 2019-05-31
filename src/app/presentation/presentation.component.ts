@@ -58,15 +58,15 @@ export class PresentationComponent implements OnInit {
   generateForm() {
     this.newguyForm = this.fb.group({
       name: new FormControl(this.userChar.name, Validators.required),
-      class: new FormControl('', Validators.required),
-      age: new FormControl(null, Validators.required),
-      level: new FormControl(null, Validators.required),
-      gender: new FormControl(''),
-      race: new FormControl('Human', Validators.required),
-      hair_color: new FormControl('', Validators.required),
-      eyes_color: new FormControl('', Validators.required),
-      appearance: new FormControl(null, Validators.required),
-      size: new FormControl(null, Validators.required)
+      class: new FormControl(this.userChar.class, Validators.required),
+      age: new FormControl(this.userChar.age, Validators.required),
+      level: new FormControl(this.userChar.level, Validators.required),
+      gender: new FormControl(this.userChar.gender),
+      race: new FormControl(this.userChar.race, Validators.required),
+      hair_color: new FormControl(this.userChar.hair_color, Validators.required),
+      eyes_color: new FormControl(this.userChar.eyes_color, Validators.required),
+      appearance: new FormControl(this.userChar.appearance, Validators.required),
+      size: new FormControl(this.userChar.size, Validators.required)
     });
   }
 
