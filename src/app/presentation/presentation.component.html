@@ -3,7 +3,7 @@
   <mat-card class="character-sheet-container" *ngIf="!loadingChar">
     <mat-card-header>
       <mat-card-title>
-        {{userChar.name}} character's sheet
+        <h3>{{userChar.name}} character's sheet</h3>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="12px">
@@ -63,4 +63,38 @@
       <mat-slide-toggle color="primary" (change)="toggleChange()">Edit</mat-slide-toggle>
     </mat-card-actions>
   </mat-card>
+  <div class="row-container">
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><h4>General stats</h4></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <h3 mat-subheader>Physical attributes</h3>
+            <mat-list-item>
+              <h4 mat-line>Agility</h4>
+              5
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>Agility</h4>
+              5
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>Agility</h4>
+              5
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Mental attributes</h3>
+            <mat-list-item>
+              <h4 mat-line>Intelligence</h4>
+              <p mat-line>5</p>
+            </mat-list-item>
+          </mat-list>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
 </div>

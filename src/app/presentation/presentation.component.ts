@@ -108,6 +108,5 @@ export class PresentationComponent implements OnInit {
       duration: 2000,
     });
   }
-
 }
 
