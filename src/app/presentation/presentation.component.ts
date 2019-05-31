@@ -21,6 +21,7 @@ export class PresentationComponent implements OnInit {
   faEditButton = faUserEdit;
   newguyForm: FormGroup;
   classes = [];
+  creating: boolean;
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar) {
     this.es.getAllDocuments('classes', '_doc')
@@ -46,12 +47,14 @@ export class PresentationComponent implements OnInit {
         this.generateForm();
         this.newguyForm.disable();
         this.loadingChar = false;
+        this.creating = false;
       }, error => {
         this.userChar = new Character();
         this.generateForm();
         console.error(error);
         this.newguyForm.disable();
         this.loadingChar = false;
+        this.creating = true;
       }
     );
   }
@@ -73,13 +76,23 @@ export class PresentationComponent implements OnInit {
 
   submitCharacter() {
     Object.assign(this.userChar, this.newguyForm.value);
-    this.es.updateDocument('characters', this.userChar, this.user.uid).then((result) => {
-      console.log(result);
-      alert('Character updated');
-    }, error => {
-      alert('Oopsies, we made a doozies');
-      console.error(error);
-    });
+    if (!this.creating) {
+      this.es.updateDocument('characters', this.userChar, this.user.uid).then((result) => {
+        console.log(result);
+        alert('Character updated');
+      }, error => {
+        alert('Oopsies, we made a doozies');
+        console.error(error);
+      });
+    } else {
+      this.es.addToIndex('characters', this.userChar, this.user.uid).then((result) => {
+        console.log(result);
+        alert('Character updated');
+      }, error => {
+        alert('Oopsies, we made a doozies');
+        console.error(error);
+      });
+    }
   }
 
   toggleChange(changeEvent) {

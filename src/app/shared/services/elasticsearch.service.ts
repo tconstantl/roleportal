@@ -17,16 +17,25 @@ export class ElasticsearchService {
     // let bonsai_url = process.env.BONSAI_URL;
     // console.log(bonsai_url);
     this.client = new Client({
-      host:environment.bonsaiUrl,
+      host: environment.bonsaiUrl,
     });
   }
 
-  addToIndex(index, value): any {
-    return this.client.index({
-      index: index,
-      type: '_doc',
-      body: value
-    });
+  addToIndex(index, value, id?): any {
+    if (id) {
+      return this.client.index({
+        index: index,
+        type: '_doc',
+        body: value,
+        id: id
+      });
+    } else {
+      return this.client.index({
+        index: index,
+        type: '_doc',
+        body: value
+      });
+    }
   }
 
   updateDocument(index, value, id): any {
@@ -34,7 +43,7 @@ export class ElasticsearchService {
       index: index,
       type: '_doc',
       body: {
-        "doc" : value
+        'doc' : value
       },
       id: id
     });
