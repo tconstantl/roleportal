@@ -19,7 +19,7 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatSlideToggleModule
+  MatSlideToggleModule, MatSnackBarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PresentationComponent } from './presentation/presentation.component';
@@ -85,7 +85,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LayoutModule,
     MatProgressSpinnerModule,
     FontAwesomeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule
   ],
   providers: [SocketService, MatDialog, AuthService],
   entryComponents: [DialogUserComponent],

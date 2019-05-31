@@ -6,6 +6,7 @@ import {Character} from '../shared/models/character';
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class PresentationComponent implements OnInit {
   newguyForm: FormGroup;
   classes = [];
 
-  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router) {
+  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar) {
     this.es.getAllDocuments('classes', '_doc')
       .then(response => {
         this.classes = response.hits.hits;
@@ -87,6 +88,12 @@ export class PresentationComponent implements OnInit {
     } else {
       this.newguyForm.disable();
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackbar.open(message, action, {
+      duration: 2000,
+    });
   }
 
 }
