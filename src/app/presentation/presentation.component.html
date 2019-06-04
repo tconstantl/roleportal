@@ -63,38 +63,44 @@
       <mat-slide-toggle color="primary" (change)="toggleChange()">Edit</mat-slide-toggle>
     </mat-card-actions>
   </mat-card>
-  <div class="row-container">
-    <div fxLayout="row" fxLayoutAlign="start start">
-      <mat-card>
+  <mat-card class="row-container" *ngIf="!loadingChar">
+    <div fxLayout="row wrap" fxLayoutAlign="start start">
+      <mat-card fxFlex="1 1 30%" (click)="openBaseStatDialog()" matTooltip="Click to modify">
         <mat-card-header>
           <mat-card-title><h4>General stats</h4></mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-list>
-            <h3 mat-subheader>Physical attributes</h3>
-            <mat-list-item>
-              <h4 mat-line>Agility</h4>
-              5
-            </mat-list-item>
-            <mat-list-item>
-              <h4 mat-line>Agility</h4>
-              5
-            </mat-list-item>
-            <mat-list-item>
-              <h4 mat-line>Agility</h4>
-              5
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <h3 mat-subheader>Mental attributes</h3>
-            <mat-list-item>
-              <h4 mat-line>Intelligence</h4>
-              <p mat-line>5</p>
-            </mat-list-item>
-          </mat-list>
+          <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="base">
+              <mat-header-cell  *matHeaderCellDef>Base</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.base}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="actual">
+              <mat-header-cell *matHeaderCellDef>Actual</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.actual}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="mod">
+              <mat-header-cell *matHeaderCellDef>Mod</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.mod}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
 
         </mat-card-content>
       </mat-card>
     </div>
 
-  </div>
+  </mat-card>
 </div>

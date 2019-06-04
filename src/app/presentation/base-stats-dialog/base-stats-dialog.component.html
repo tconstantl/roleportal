@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Modifying general stats</h1>
+<div mat-dialog-content>
+  <form [formGroup]="baseStatsForm" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
+    <mat-form-field>
+      <mat-label>Agility</mat-label>
+      <input matInput placeholder="5" formControlName="agility" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Constitution</mat-label>
+      <input matInput placeholder="5" formControlName="constitution" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Strength</mat-label>
+      <input matInput placeholder="5" formControlName="strength" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Dexterity</mat-label>
+      <input matInput placeholder="5" formControlName="dexterity" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Intelligence</mat-label>
+      <input matInput placeholder="5" formControlName="intelligence" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Power</mat-label>
+      <input matInput placeholder="5" formControlName="power" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Will</mat-label>
+      <input matInput placeholder="5" formControlName="will" type="number" max="20" min="1">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Perception</mat-label>
+      <input matInput placeholder="5" formControlName="perception" type="number" max="20" min="1">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSaveClick()" cdkFocusInitial>Ok</button>
+</div>

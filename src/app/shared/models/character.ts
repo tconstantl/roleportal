@@ -9,18 +9,33 @@ export class Character {
   eyes_color = '';
   appearance = 0;
   size = 0;
-  base_stats: {
-    agility: BaseStat, constitution: BaseStat, dexterity: BaseStat, strength: BaseStat,
-    intelligence: BaseStat, perception: BaseStat, power: BaseStat, will: BaseStat
-  } = {
-    'agility':  new BaseStat(), 'constitution': new BaseStat(), 'dexterity': new BaseStat(), 'strength': new BaseStat(),
-    'intelligence': new BaseStat(), 'perception': new BaseStat(), 'power': new BaseStat(), 'will': new BaseStat()};
+  base_stats: BaseStat[] =
+    [
+      new BaseStat('agility', 'physical'),
+      new BaseStat('constitution', 'physical'),
+      new BaseStat('strength', 'physical'),
+      new BaseStat('dexterity', 'physical'),
+      new BaseStat(`intelligence`, 'intellect'),
+      new BaseStat(`power`, 'intellect'),
+      new BaseStat(`will`, 'intellect'),
+      new BaseStat(`perception`, 'intellect')
+    ];
   secondary_stats: SecondaryStat[] = [];
 }
 export class BaseStat {
-  base = 5;
-  actual = 5;
-  mod = 0;
+  id: string;
+  type: string;
+  base: number;
+  actual: number;
+  mod: number;
+
+  constructor(id: string, type: string) {
+    this.id = id;
+    this.type = type;
+    this.base = 5;
+    this.actual = 5;
+    this.mod = 0;
+  }
 }
 
 export class SecondaryStat {
@@ -33,3 +48,16 @@ export class SecondaryStat {
   base_stat_mod = ''; // name of the stat used for computing this stat modifier
 }
 
+export function resetActualStats(char: Character) {
+  for (let i = 0; i < char.base_stats.length; i++) {
+   char.base_stats[i].actual = char.base_stats[i].base;
+  }
+  computeMods(char);
+}
+
+export function computeMods(char: Character) {
+  let refTab = [-30, -20, -10, -5, 0, +5, +5, +10, +10, +15, +20, +20, +25, +25, +30, +35, +35, +40, +40, +45];
+  for (let i = 0; i < char.base_stats.length; i++) {
+    char.base_stats[i].mod = refTab[char.base_stats[i].actual - 1];
+  }
+}

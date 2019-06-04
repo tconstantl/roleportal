@@ -2,11 +2,11 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {AuthService} from '../shared/services/auth.service';
 import {User} from 'firebase';
-import {Character} from '../shared/models/character';
-import {faUserEdit} from '@fortawesome/free-solid-svg-icons';
+import {Character, resetActualStats} from '../shared/models/character';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {BaseStatsDialogComponent} from './base-stats-dialog/base-stats-dialog.component';
 
 
 @Component({
@@ -18,12 +18,13 @@ export class PresentationComponent implements OnInit {
   user: User;
   userChar: Character;
   loadingChar: boolean;
-  faEditButton = faUserEdit;
   newguyForm: FormGroup;
   classes = [];
   creating: boolean;
+  dataSource;
+  displayedColumns: string[] = ['id', 'base', 'actual', 'mod'];
 
-  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar) {
+  constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar, public dialog: MatDialog) {
     this.es.getAllDocuments('classes', '_doc')
       .then(response => {
         this.classes = response.hits.hits;
@@ -48,6 +49,7 @@ export class PresentationComponent implements OnInit {
         this.newguyForm.disable();
         this.loadingChar = false;
         this.creating = false;
+        this.loadStats();
       }, error => {
         this.userChar = new Character();
         this.generateForm();
@@ -55,6 +57,7 @@ export class PresentationComponent implements OnInit {
         this.newguyForm.disable();
         this.loadingChar = false;
         this.creating = true;
+        this.loadStats();
       }
     );
   }
@@ -106,6 +109,33 @@ export class PresentationComponent implements OnInit {
   openSnackBar(message: string, action: string) {
     this.snackbar.open(message, action, {
       duration: 2000,
+    });
+  }
+
+  loadStats() {
+    this.dataSource = this.userChar.base_stats;
+  }
+
+  openBaseStatDialog() {
+    const dialogRef = this.dialog.open(BaseStatsDialogComponent, {
+      data: this.userChar.base_stats
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userChar.base_stats = result;
+       resetActualStats(this.userChar);
+       const payload = {
+         base_stats: this.userChar.base_stats
+       };
+       this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+         this.snackbar.open('General stats updated', 'Ok', { duration: 2000});
+       }, error => {
+         this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+         console.error(error);
+       });
+      } else {
+        this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+      }
     });
   }
 }

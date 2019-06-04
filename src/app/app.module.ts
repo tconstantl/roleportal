@@ -19,7 +19,7 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatSlideToggleModule, MatSnackBarModule
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PresentationComponent } from './presentation/presentation.component';
@@ -38,6 +38,7 @@ import {AuthService} from './shared/services/auth.service';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { BaseStatsDialogComponent } from './presentation/base-stats-dialog/base-stats-dialog.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -56,7 +57,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     PresentationComponent,
     HomeComponent,
     NewguyComponent,
-    MainNavComponent
+    MainNavComponent,
+    BaseStatsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -86,10 +88,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatProgressSpinnerModule,
     FontAwesomeModule,
     MatSlideToggleModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatTooltipModule
   ],
   providers: [SocketService, MatDialog, AuthService],
-  entryComponents: [DialogUserComponent],
+  entryComponents: [DialogUserComponent, BaseStatsDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
