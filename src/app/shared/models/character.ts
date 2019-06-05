@@ -39,14 +39,25 @@ export class BaseStat {
 }
 
 export class SecondaryStat {
-  name = '';
-  base = 0;
-  special = 0;
-  class = 0;
-  upgradeCost = 2;
-  category = '';
-  baseStatMod = ''; // name of the stat used for computing this stat modifier
-  modMultiplier = 1;
+  name: string;
+  base: number;
+  special: number;
+  class: number;
+  upgradeCost: number;
+  category: string;
+  baseStatMod: string; // name of the stat used for computing this stat modifier
+  modMultiplier: number;
+
+  constructor(category: string) {
+    this.name = '';
+    this.base = 0;
+    this.special = 0;
+    this.class = 0;
+    this.upgradeCost = 2;
+    this.category = category;
+    this.baseStatMod = '';
+    this.modMultiplier = 1;
+  }
 }
 
 export function resetActualStats(char: Character) {

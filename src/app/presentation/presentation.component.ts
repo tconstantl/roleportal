@@ -145,26 +145,51 @@ export class PresentationComponent implements OnInit {
     });
   }
 
-  openSkillDialog(skill: SecondaryStat) {
-    const dialogRef = this.dialog.open(SkillDialogComponent, {
-      data: skill
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        Object.assign(skill, result);
-      const payload = {
-       secondary_stats: this.userChar.secondary_stats
-      };
-      this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
-        this.snackbar.open('Skill updated', 'Ok', { duration: 2000});
-      }, error => {
-        this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
-        console.error(error);
+  openSkillDialog(skill: SecondaryStat, category?: string) {
+    if (skill) {
+      const dialogRef = this.dialog.open(SkillDialogComponent, {
+        data: skill
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          Object.assign(skill, result);
+          const payload = {
+            secondary_stats: this.userChar.secondary_stats
+          };
+          this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+            this.snackbar.open('Skill updated', 'Ok', { duration: 2000});
+          }, error => {
+            this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+            console.error(error);
+          });
+        } else {
+          this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+        }
       });
     } else {
-      this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+      let newSkill = new SecondaryStat(category);
+      const dialogRef = this.dialog.open(SkillDialogComponent, {
+        data: newSkill
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          Object.assign(newSkill, result);
+          this.userChar.secondary_stats.push(newSkill);
+          this.athleticSkills = this.userChar.secondary_stats;
+          const payload = {
+            secondary_stats: this.userChar.secondary_stats
+          };
+          this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+            this.snackbar.open('Skill created', 'Ok', { duration: 2000});
+          }, error => {
+            this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+            console.error(error);
+          });
+        } else {
+          this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+        }
+      });
     }
-  });
   }
 
   getStatMod(id: string) {
