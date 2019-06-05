@@ -2,11 +2,13 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {AuthService} from '../shared/services/auth.service';
 import {User} from 'firebase';
-import {Character, resetActualStats} from '../shared/models/character';
+import {Character, resetActualStats, SecondaryStat} from '../shared/models/character';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {BaseStatsDialogComponent} from './base-stats-dialog/base-stats-dialog.component';
+import {SkillDialogComponent} from './skill-dialog/skill-dialog.component';
+import {__assign} from 'tslib';
 
 
 @Component({
@@ -21,8 +23,11 @@ export class PresentationComponent implements OnInit {
   newguyForm: FormGroup;
   classes = [];
   creating: boolean;
-  dataSource;
-  displayedColumns: string[] = ['id', 'base', 'actual', 'mod'];
+  generalStats;
+  athleticSkills;
+  displayedGeneral: string[] = ['id', 'base', 'actual', 'mod'];
+  displayedAthletics: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total' ];
+
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar, public dialog: MatDialog) {
     this.es.getAllDocuments('classes', '_doc')
@@ -113,7 +118,8 @@ export class PresentationComponent implements OnInit {
   }
 
   loadStats() {
-    this.dataSource = this.userChar.base_stats;
+    this.generalStats = this.userChar.base_stats;
+    this.athleticSkills = this.userChar.secondary_stats.filter(x => x.category === 'athletic');
   }
 
   openBaseStatDialog() {
@@ -137,6 +143,32 @@ export class PresentationComponent implements OnInit {
         this.snackbar.open('No changes made', 'Ok', { duration: 2000});
       }
     });
+  }
+
+  openSkillDialog(skill: SecondaryStat) {
+    const dialogRef = this.dialog.open(SkillDialogComponent, {
+      data: skill
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        Object.assign(skill, result);
+      const payload = {
+       secondary_stats: this.userChar.secondary_stats
+      };
+      this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+        this.snackbar.open('Skill updated', 'Ok', { duration: 2000});
+      }, error => {
+        this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+        console.error(error);
+      });
+    } else {
+      this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+    }
+  });
+  }
+
+  getStatMod(id: string) {
+    return this.userChar.base_stats.find(x => x.id === id).mod;
   }
 }
 

@@ -39,6 +39,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { BaseStatsDialogComponent } from './presentation/base-stats-dialog/base-stats-dialog.component';
+import { SkillDialogComponent } from './presentation/skill-dialog/skill-dialog.component';
+import {NgStringPipesModule} from 'angular-pipes';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -58,7 +60,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     HomeComponent,
     NewguyComponent,
     MainNavComponent,
-    BaseStatsDialogComponent
+    BaseStatsDialogComponent,
+    SkillDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -90,10 +93,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatSlideToggleModule,
     MatSnackBarModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgStringPipesModule
   ],
   providers: [SocketService, MatDialog, AuthService],
-  entryComponents: [DialogUserComponent, BaseStatsDialogComponent],
+  entryComponents: [DialogUserComponent, BaseStatsDialogComponent, SkillDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

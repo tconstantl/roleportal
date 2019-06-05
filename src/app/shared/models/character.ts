@@ -43,9 +43,10 @@ export class SecondaryStat {
   base = 0;
   special = 0;
   class = 0;
-  upgrade_cost = 2;
+  upgradeCost = 2;
   category = '';
-  base_stat_mod = ''; // name of the stat used for computing this stat modifier
+  baseStatMod = ''; // name of the stat used for computing this stat modifier
+  modMultiplier = 1;
 }
 
 export function resetActualStats(char: Character) {

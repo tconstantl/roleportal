@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Modifying a skill</h1>
+<div mat-dialog-content>
+  <form [formGroup]="skillForm" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Athleticism" formControlName="name" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <input matInput placeholder="athletics" formControlName="category" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Modifier</mat-label>
+      <mat-select formControlName="baseStatMod">
+        <mat-optgroup *ngFor="let group of statGroups" [label]="group.label">
+          <mat-option *ngFor="let stat of group.stats" [value]="stat.value">
+            {{stat.value | titlecase}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Base</mat-label>
+      <input matInput placeholder="42" formControlName="base" type="number" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Special</mat-label>
+      <input matInput placeholder="42" formControlName="special" type="number" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Class</mat-label>
+      <input matInput placeholder="42" formControlName="special" type="class" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Upgrade Cost</mat-label>
+      <input matInput placeholder="42" formControlName="special" type="upgradeCost" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Number of multipliers applied</mat-label>
+      <input matInput placeholder="42" formControlName="special" type="modMultiplier" >
+    </mat-form-field>
+  </form>
+  <div>{{skillForm.value | json}}</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSaveClick()" [disabled] = "!skillForm.valid">Save</button>
+</div>
+

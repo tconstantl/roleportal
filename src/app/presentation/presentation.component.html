@@ -64,13 +64,13 @@
     </mat-card-actions>
   </mat-card>
   <mat-card class="row-container" *ngIf="!loadingChar">
-    <div fxLayout="row wrap" fxLayoutAlign="start start">
-      <mat-card fxFlex="1 1 30%" (click)="openBaseStatDialog()" matTooltip="Click to modify">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="6px">
+      <mat-card fxFlex="1 0 340px" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
         <mat-card-header>
           <mat-card-title><h4>General stats</h4></mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-table [dataSource]="dataSource">
+          <mat-table [dataSource]="generalStats">
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
               <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
@@ -78,24 +78,71 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef>Base</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.base}} </mat-cell>
+              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="actual">
-              <mat-header-cell *matHeaderCellDef>Actual</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.actual}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef  class="numberColumn">Actual</mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.actual}} </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef>Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.mod}} </mat-cell>
+              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.mod}} </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-header-row *matHeaderRowDef="displayedGeneral"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedGeneral;"></mat-row>
+          </mat-table>
+
+        </mat-card-content>
+      </mat-card>
+      <mat-card fxFlex="2 0 340px" class="secondary-skills">
+        <mat-card-header>
+          <mat-card-title><h4>Athletics skills</h4></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-table [dataSource]="athleticSkills">
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="base">
+              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="mod">
+              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="spe">
+              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="class">
+              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedAthletics"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedAthletics;" (click)="openSkillDialog(row)"></mat-row>
           </mat-table>
 
         </mat-card-content>
