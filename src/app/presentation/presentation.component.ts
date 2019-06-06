@@ -23,10 +23,9 @@ export class PresentationComponent implements OnInit {
   newguyForm: FormGroup;
   classes = [];
   creating: boolean;
-  generalStats;
-  athleticSkills;
+  generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
   displayedGeneral: string[] = ['id', 'base', 'actual', 'mod'];
-  displayedAthletics: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total' ];
+  displayedSkills: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total', 'edit', 'del' ];
 
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar, public dialog: MatDialog) {
@@ -120,6 +119,13 @@ export class PresentationComponent implements OnInit {
   loadStats() {
     this.generalStats = this.userChar.base_stats;
     this.athleticSkills = this.userChar.secondary_stats.filter(x => x.category === 'athletic');
+    this.vigorSkills = this.userChar.secondary_stats.filter(x => x.category === 'vigor');
+    this.perceptionSkills = this.userChar.secondary_stats.filter(x => x.category === 'perception');
+    this.intellectualSkills = this.userChar.secondary_stats.filter(x => x.category === 'intellectual');
+    this.socialSkills = this.userChar.secondary_stats.filter(x => x.category === 'social');
+    this.subterfugeSkills = this.userChar.secondary_stats.filter(x => x.category === 'subterfuge');
+    this.creativeSkills = this.userChar.secondary_stats.filter(x => x.category === 'creative');
+    this.specialSkills = this.userChar.secondary_stats.filter(x => x.category === 'special');
   }
 
   openBaseStatDialog() {
@@ -175,7 +181,7 @@ export class PresentationComponent implements OnInit {
         if (result) {
           Object.assign(newSkill, result);
           this.userChar.secondary_stats.push(newSkill);
-          this.athleticSkills = this.userChar.secondary_stats;
+          this.loadStats();
           const payload = {
             secondary_stats: this.userChar.secondary_stats
           };
@@ -190,6 +196,21 @@ export class PresentationComponent implements OnInit {
         }
       });
     }
+  }
+
+  deleteSkill(skill: SecondaryStat) {
+    let index = this.userChar.secondary_stats.indexOf(skill);
+    this.userChar.secondary_stats.splice(index, 1);
+    const payload = {
+      secondary_stats: this.userChar.secondary_stats
+    };
+    this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+      this.snackbar.open('Skill deleted', 'Ok', { duration: 2000});
+    }, error => {
+      this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+      console.error(error);
+    });
+    this.loadStats();
   }
 
   getStatMod(id: string) {
