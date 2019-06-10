@@ -21,6 +21,7 @@ export class Character {
       new BaseStat(`perception`, 'intellect')
     ];
   secondary_stats: SecondaryStat[] = [];
+  disadvantages: string[];
 }
 export class BaseStat {
   id: string;

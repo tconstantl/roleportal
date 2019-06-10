@@ -19,15 +19,12 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatProgressSpinnerModule,
-  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTooltipModule
+  MatSlideToggleModule, MatSnackBarModule, MatTableModule, MatTooltipModule, MatMenuModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PresentationComponent } from './presentation/presentation.component';
 import { HomeComponent } from './home/home.component';
-import {SocketService} from './live-chat/shared/services/socket.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DialogUserComponent} from './live-chat/dialog-user/dialog-user.component';
-import {LiveChatModule} from './live-chat/live-chat.module';
 import { NewguyComponent } from './newguy/newguy.component';
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 
@@ -41,6 +38,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { BaseStatsDialogComponent } from './presentation/base-stats-dialog/base-stats-dialog.component';
 import { SkillDialogComponent } from './presentation/skill-dialog/skill-dialog.component';
 import {NgStringPipesModule} from 'angular-pipes';
+import { RollsComponent } from './rolls/rolls.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -61,7 +59,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NewguyComponent,
     MainNavComponent,
     BaseStatsDialogComponent,
-    SkillDialogComponent
+    SkillDialogComponent,
+    RollsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +80,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FormsModule,
     MatDialogModule,
     ReactiveFormsModule,
-    LiveChatModule,
     MatSelectModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -94,10 +92,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatSnackBarModule,
     MatTableModule,
     MatTooltipModule,
-    NgStringPipesModule
+    NgStringPipesModule,
+    MatMenuModule
   ],
-  providers: [SocketService, MatDialog, AuthService],
-  entryComponents: [DialogUserComponent, BaseStatsDialogComponent, SkillDialogComponent],
+  providers: [MatDialog, AuthService],
+  entryComponents: [BaseStatsDialogComponent, SkillDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

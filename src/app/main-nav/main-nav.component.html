@@ -6,8 +6,8 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="">Home</a>
+      <a mat-list-item routerLink="/rolls" *ngIf="loggedIn">Rolls</a>
       <a mat-list-item routerLink="/presentation" *ngIf="loggedIn">Character</a>
-<!--      <a mat-list-item routerLink="/live-chat" *ngIf="loggedIn">Live Chat</a>-->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
