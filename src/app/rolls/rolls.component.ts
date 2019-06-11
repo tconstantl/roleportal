@@ -4,6 +4,8 @@ import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {Character, SecondaryStat} from '../shared/models/character';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {ChatService} from '../shared/services/chat.service';
+import {IChat} from '../shared/models/ichat';
 
 @Component({
   selector: 'app-rolls',
@@ -14,15 +16,25 @@ export class RollsComponent implements OnInit {
 
   uid: string;
   userChar: Character;
+  userLoaded: boolean;
   generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
 
+  chats: IChat[] = [];
+  message: string;
+  sending: boolean;
+  chatJoined: boolean;
 
-  constructor( private as: AuthService, private es: ElasticsearchService, private router: Router, private snackbar: MatSnackBar) { }
+
+  constructor( private as: AuthService, private es: ElasticsearchService, private router: Router, private snackbar: MatSnackBar, private chatService: ChatService) { }
 
   ngOnInit() {
+    this.userLoaded = false;
+    this.chatJoined = false;
+    this.connectToChat();
     this.as.getUser().subscribe((user) => {
       this.uid = user.uid;
       this.fetchUserChara(this.uid);
+      this.userLoaded = true;
     });
   }
   fetchUserChara(id) {
@@ -51,7 +63,8 @@ export class RollsComponent implements OnInit {
   }
 
   rollGeneral(statValue: number) {
-    alert('Total : ' + (Math.floor(Math.random() * 10 + 1) + statValue));
+    let roll = Math.floor(Math.random() * 10 + 1);
+    alert('Total : ' + (roll + statValue) + ', rolled a ' + roll);
   }
 
   rollSkill(statValue: number) {
@@ -84,4 +97,24 @@ export class RollsComponent implements OnInit {
     return this.userChar.base_stats.find(x => x.id === id).mod;
   }
 
+  connectToChat() {
+    console.log('lol ok');
+    this.chatService.getChannel().bind('chat', data => {
+      if (data.email === this.chatService.user.email) {
+        data.isMe = true;
+      }
+      this.chats.push(data);
+    });
+  }
+
+  sendMessage(message: string) {
+    this.sending = true;
+    this.chatService.sendMessage(message)
+     .subscribe(resp => {
+        this.message = undefined;
+        this.sending = false;
+     }, err => {
+        this.sending = false;
+    });
+  }
 }

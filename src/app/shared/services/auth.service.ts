@@ -27,4 +27,12 @@ export class AuthService {
     return this.user;
   }
 
+  getUserDisplayName() {
+    return this.userDetails.displayName;
+  }
+
+  getUserEmail () {
+    return this.userDetails.email;
+  }
+
 }

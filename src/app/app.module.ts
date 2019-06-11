@@ -39,6 +39,9 @@ import { BaseStatsDialogComponent } from './presentation/base-stats-dialog/base-
 import { SkillDialogComponent } from './presentation/skill-dialog/skill-dialog.component';
 import {NgStringPipesModule} from 'angular-pipes';
 import { RollsComponent } from './rolls/rolls.component';
+import {ChatService} from './shared/services/chat.service';
+import {PusherService} from './shared/services/pusher.service';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -93,9 +96,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatTableModule,
     MatTooltipModule,
     NgStringPipesModule,
-    MatMenuModule
+    MatMenuModule,
+    HttpClientModule
   ],
-  providers: [MatDialog, AuthService],
+  providers: [MatDialog, AuthService, ChatService, PusherService],
   entryComponents: [BaseStatsDialogComponent, SkillDialogComponent],
   bootstrap: [AppComponent]
 })
