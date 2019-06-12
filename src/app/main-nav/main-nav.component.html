@@ -25,10 +25,8 @@
 <!--      <button (click)="connectToChat()" *ngIf="loggedIn" [disabled]="!userLoaded" mat-raised-button >Connect to the chat</button>-->
       <button mat-raised-button *ngIf="loggedIn" (click)="logout()">Logout</button>
     </mat-toolbar>
-    <div fxLayout="column" fxLayoutAlign="start center">
-      <div class="view-container">
-        <router-outlet></router-outlet>
-      </div>
+    <div  class="view-container">
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

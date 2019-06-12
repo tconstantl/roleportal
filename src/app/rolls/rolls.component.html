@@ -1,72 +1,95 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-  <mat-card class="top-bar">
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <button mat-button [matMenuTriggerFor]="menuGeneral">General Stats</button>
-      <mat-menu #menuGeneral="matMenu">
-        <button (click)="rollGeneral(stat.actual)" mat-menu-item *ngFor="let stat of generalStats">{{stat.id | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuAthletic">Athletic Skills</button>
-      <mat-menu #menuAthletic="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of athleticSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuVigor">Vigor Skills</button>
-      <mat-menu #menuVigor="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of vigorSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuPerception">Perception Skills</button>
-      <mat-menu #menuPerception="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of perceptionSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuIntellectual">Intellectual Skills</button>
-      <mat-menu #menuIntellectual="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of intellectualSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuSocial">Social Skills</button>
-      <mat-menu #menuSocial="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of socialSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuSubterfuge">Subterfuge Skills</button>
-      <mat-menu #menuSubterfuge="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of subterfugeSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuCreative">Creative Skills</button>
-      <mat-menu #menuCreative="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of creativeSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-      <button mat-button [matMenuTriggerFor]="menuSpecial">Special Skills</button>
-      <mat-menu #menuSpecial="matMenu">
-        <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of specialSkills">{{skill.name | titlecase}}</button>
-      </mat-menu>
-    </div>
-  </mat-card>
-  <mat-card class="chats">
-    <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-      <mat-card-title>Livechat</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="chatbox">
-      <div *ngFor="let chat of chats">
-        <div class="message sent" *ngIf="chat.type!=='joined' && chat.isMe">
-          {{chat.message}}
-          <span class="metadata">
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="page-view">
+  <div fxFlex="2 2 65vw" fxLayout="column" fxLayoutAlign="space-between stretch">
+    <mat-card class="blue" fxFlex="3 3 auto"></mat-card>
+    <mat-card fxFlex="2 2 auto" class="chats">
+      <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+        <mat-card-title>Livechat</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chatbox">
+        <div *ngFor="let chat of chats">
+          <div class="message sent" *ngIf="chat.type!=='joined' && chat.isMe">
+            {{chat.message}}
+            <span class="metadata">
               <span class="time">{{chat.createdAt | date: 'HH:mm aaa'}}</span>
             </span>
-        </div>
-        <div class="message received"  *ngIf="chat.type!=='joined' && !chat.isMe">
-          <strong>{{chat.displayName}}</strong> <br>
-          {{chat.message}}
-          <span class="metadata">
+          </div>
+          <div class="message received"  *ngIf="chat.type!=='joined' && !chat.isMe">
+            <strong>{{chat.displayName}}</strong> <br>
+            {{chat.message}}
+            <span class="metadata">
               <span class="time">{{chat.createdAt | date: 'HH:mm aaa'}}</span>
             </span>
+          </div>
+          <p align="center" class="joined"  *ngIf="chat.type==='joined'">
+            <span class="rounded bg-primary text-white">{{chat.displayName}} Joined</span>
+          </p>
         </div>
-        <p align="center" class="joined"  *ngIf="chat.type==='joined'">
-          <span class="rounded bg-primary text-white">{{chat.displayName}} Joined</span>
-        </p>
-      </div>
-    </mat-card-content>
+      </mat-card-content>
 
-    <div class="d-flex flex-row">
-      <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter message" style="margin-right: 10px">
-      <button [disabled]="!message || sending" (click)="sendMessage(message)" class="btn btn-primary"> {{sending ? 'Sending' : 'Send'}}</button>
-    </div>
+      <div class="d-flex flex-row">
+        <input [(ngModel)]="message" type="text" class="form-control" placeholder="Enter message" style="margin-right: 10px">
+        <button [disabled]="!message || sending" (click)="sendMessage(message)" class="btn btn-primary"> {{sending ? 'Sending' : 'Send'}}</button>
+      </div>
+    </mat-card>
+  </div>
+  <mat-card fxFlex="1 1 35vw" fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-card fxFlex="1 1 auto" class="green"></mat-card>
+    <mat-card fxFlex="5 5 auto" fxLayout="row wrap" fxLayoutAlign="start stretch">
+      <mat-card fxFlex="3 3 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+        <mat-card fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+          <mat-card fxFlex="2 2 auto">stats</mat-card>
+          <mat-card fxFlex="3 3 auto">initiative</mat-card>
+        </mat-card>
+        <mat-card fxFlex="1 1 auto" > attaque parade esquive</mat-card>
+        <mat-card fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+          <mat-card fxFlex="1 1 auto">hp fatigue ki statut</mat-card>
+          <mat-card fxFlex="1 1 auto"> resistances et presence</mat-card>
+        </mat-card>
+        <mat-card fxFlex="3 3 auto" fxLayout="row wrap" fxLayoutAlign="start stretch">
+          <mat-card fxFlex="1 1 auto">equipement et or</mat-card>
+          <mat-card fxFlex="1 1 auto">techniques</mat-card>
+        </mat-card>
+      </mat-card>
+      <mat-card fxFlex="1 1 auto" class="stats-and-skills">
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <button mat-button [matMenuTriggerFor]="menuGeneral">General Stats</button>
+          <mat-menu #menuGeneral="matMenu">
+            <button (click)="rollGeneral(stat.actual)" mat-menu-item *ngFor="let stat of generalStats">{{stat.id | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuAthletic">Athletic Skills</button>
+          <mat-menu #menuAthletic="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of athleticSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuVigor">Vigor Skills</button>
+          <mat-menu #menuVigor="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of vigorSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuPerception">Perception Skills</button>
+          <mat-menu #menuPerception="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of perceptionSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuIntellectual">Intellectual Skills</button>
+          <mat-menu #menuIntellectual="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of intellectualSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuSocial">Social Skills</button>
+          <mat-menu #menuSocial="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of socialSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuSubterfuge">Subterfuge Skills</button>
+          <mat-menu #menuSubterfuge="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of subterfugeSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuCreative">Creative Skills</button>
+          <mat-menu #menuCreative="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of creativeSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+          <button mat-button [matMenuTriggerFor]="menuSpecial">Special Skills</button>
+          <mat-menu #menuSpecial="matMenu">
+            <button (click)="rollSkill(computeSkillTotal(skill))" mat-menu-item *ngFor="let skill of specialSkills">{{skill.name | titlecase}}</button>
+          </mat-menu>
+        </div>
+      </mat-card>
+    </mat-card>
   </mat-card>
 </div>
