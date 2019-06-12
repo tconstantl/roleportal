@@ -27,6 +27,8 @@ export class PresentationComponent implements OnInit {
   displayedGeneral: string[] = ['id', 'base', 'actual', 'mod'];
   displayedSkills: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total', 'edit', 'del' ];
 
+  showStatsSkills: boolean;
+
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar, public dialog: MatDialog) {
     this.es.getAllDocuments('classes', '_doc')
@@ -102,7 +104,7 @@ export class PresentationComponent implements OnInit {
     }
   }
 
-  toggleChange(changeEvent) {
+  toggleChange() {
     if (!this.newguyForm.enabled) {
       this.newguyForm.enable();
     } else {

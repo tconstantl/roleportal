@@ -1,6 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-  <mat-spinner class="loadingSpinner" *ngIf="loadingChar"></mat-spinner>
-  <mat-card class="character-sheet-container" *ngIf="!loadingChar">
+<div fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-card fxFlex="0 0 24px" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-checkbox [(ngModel)]="showStatsSkills"> Stats and skills</mat-checkbox>
+  </mat-card>
+  <div fxFlex fxLayoutAlign="center center"><mat-spinner class="loadingSpinner" *ngIf="loadingChar"></mat-spinner></div>
+  <mat-card  *ngIf="!loadingChar">
     <mat-card-header>
       <mat-card-title>
         <h3>{{userChar.name}} character's sheet</h3>
@@ -63,8 +66,8 @@
       <mat-slide-toggle color="primary" (change)="toggleChange()">Edit</mat-slide-toggle>
     </mat-card-actions>
   </mat-card>
-  <mat-card class="row-container" *ngIf="!loadingChar">
-    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="6px">
+  <mat-card fxFlex *ngIf="!loadingChar">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="6px" *ngIf="showStatsSkills">
       <mat-card fxFlex="1 0 340px" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
         <mat-card-header>
           <mat-card-title><h4>General stats</h4></mat-card-title>
