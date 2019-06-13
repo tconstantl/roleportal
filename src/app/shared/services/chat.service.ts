@@ -21,10 +21,12 @@ export class ChatService {
       }));
   }
 
-  sendMessage(message: string): Observable<any> {
+  sendMessage(message: string, isCritFail: boolean, isCritSuccess): Observable<any> {
     const param = {
       message,
       type: 'human',
+      isCritFail: isCritFail,
+      isCritSuccess: isCritSuccess,
       ...this.user
     };
     return this._http.post(this._endpoint + '/message', param);

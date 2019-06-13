@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {BaseStatsDialogComponent} from './base-stats-dialog/base-stats-dialog.component';
 import {SkillDialogComponent} from './skill-dialog/skill-dialog.component';
-import {__assign} from 'tslib';
 
 
 @Component({

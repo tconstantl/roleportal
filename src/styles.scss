@@ -7,6 +7,8 @@
 @import "./app/home/home.component";
 @import "app/app.component.css";
 @import "app/newguy/newguy.component";
+@import "app/rolls/rolls.component";
+@import "app/presentation/presentation.component";
 
 .view-container {
   width: 100%;
@@ -58,4 +60,13 @@ body {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+button.mat-button .mat-icon,
+a.mat-button .mat-icon,
+a.mat-raised-button .mat-icon,
+a.mat-flat-button .mat-icon,
+a.mat-stroked-button .mat-icon {
+  vertical-align: top;
+  font-size: 1.25em;
 }

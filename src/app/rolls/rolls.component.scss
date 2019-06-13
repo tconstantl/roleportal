@@ -1,124 +1,131 @@
-.stats-and-skills {
-}
-.chats {
-  //height: calc(100% - 12px);
-  position: relative;
-  z-index: 0;
-}
+.rolls-view {
+  .chats {
+    //height: calc(100% - 12px);
+    position: relative;
+    z-index: 0;
+  }
 
-.chats .chatbox {
-  height: calc(100% - 68px);
-  overflow-x: hidden;
-  padding: 0 16px;
-  margin-bottom: 5px;
-}
+  .chats .chatbox {
+    height: calc(100% - 68px);
+    overflow-x: hidden;
+    padding: 0 16px;
+    margin-bottom: 5px;
+  }
 
-.joined {
-  clear: both;
-  line-height: 18px;
-  font-size: 15px;
-  margin: 8px 0;
-  padding: 8px;
-}
-.joined span {
-  padding: 5px
-}
+  .joined {
+    clear: both;
+    line-height: 18px;
+    font-size: 15px;
+    margin: 8px 0;
+    padding: 8px;
+  }
+  .joined span {
+    padding: 5px
+  }
 
-/* Messages*/
+  /* Messages*/
 
-.message {
-  color: #000;
-  clear: both;
-  line-height: 18px;
-  font-size: 15px;
-  padding: 8px;
-  position: relative;
-  margin: 8px 0;
-  max-width: 85%;
-  word-wrap: break-word;
-  z-index: -1;
-}
+  .message {
+    color: #000;
+    clear: both;
+    line-height: 18px;
+    font-size: 15px;
+    padding: 8px;
+    position: relative;
+    margin: 8px 0;
+    max-width: 85%;
+    word-wrap: break-word;
+    z-index: -1;
+  }
 
-.message:after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 0;
-  border-style: solid;
-}
+  .message:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
 
-.metadata {
-  display: inline-block;
-  float: right;
-  padding: 0 0 0 7px;
-  position: relative;
-  bottom: -4px;
-}
+  .metadata {
+    display: inline-block;
+    float: right;
+    padding: 0 0 0 7px;
+    position: relative;
+    bottom: -4px;
+  }
 
-.metadata .time {
-  color: rgba(0, 0, 0, .45);
-  font-size: 11px;
-  display: inline-block;
-}
+  .metadata .time {
+    color: rgba(0, 0, 0, .45);
+    font-size: 11px;
+    display: inline-block;
+  }
 
+  .message:first-child {
+    margin: 16px 0 8px;
+  }
 
-.message:first-child {
-  margin: 16px 0 8px;
-}
+  .message.received {
+    background: #ccc;
+    border-radius: 0px 5px 5px 5px;
+    float: left;
+  }
 
-.message.received {
-  background: #ccc;
-  border-radius: 0px 5px 5px 5px;
-  float: left;
-}
+  .message.received:after {
+    border-width: 0px 10px 10px 0;
+    border-color: transparent #ccc transparent transparent;
+    top: 0;
+    left: -10px;
+  }
 
+  .message.sent {
+    background: #e1ffc7;
+    border-radius: 5px 0px 5px 5px;
+    float: right;
+  }
 
-.message.received:after {
-  border-width: 0px 10px 10px 0;
-  border-color: transparent #ccc transparent transparent;
-  top: 0;
-  left: -10px;
-}
+  .message.sent:after {
+    border-width: 0px 0 10px 10px;
+    border-color: transparent transparent transparent #e1ffc7;
+    top: 0;
+    right: -10px;
+  }
 
-.message.sent {
-  background: #e1ffc7;
-  border-radius: 5px 0px 5px 5px;
-  float: right;
-}
+  .message.critFail {
+    background: rgba(139, 61, 47, 0.78);
+  }
 
-.message.sent:after {
-  border-width: 0px 0 10px 10px;
-  border-color: transparent transparent transparent #e1ffc7;
-  top: 0;
-  right: -10px;
-}
+  .message.critFail:after {
+    border-color: transparent transparent transparent rgba(139, 61, 47, 0.78);
+  }
 
+  .message.critSuccess {
+    background: rgba(0, 139, 0, 0.76);
+  }
 
-.metadata {
-  display: inline-block;
-  float: right;
-  padding: 0 0 0 7px;
-  position: relative;
-  bottom: -4px;
-}
+  .message.critSuccess:after {
+    border-color: transparent transparent transparent rgba(0, 139, 0, 0.76);
+  }
 
-.metadata .time {
-  color: rgba(0, 0, 0, .45);
-  font-size: 11px;
-  display: inline-block;
-}
+  .metadata {
+    display: inline-block;
+    float: right;
+    padding: 0 0 0 7px;
+    position: relative;
+    bottom: -4px;
+  }
 
-/** Test **/
+  .metadata .time {
+    color: rgba(0, 0, 0, .45);
+    font-size: 11px;
+    display: inline-block;
+  }
 
-.blue {
-  background-color: blue;
-}
-.red {
-  background-color: red;
-}
-.green {
-  background-color: green;
-}
-.yellow {
-  background-color: yellow;
+  /** Test **/
+
+  .stats-and-skills {
+    padding: 8px;
+    overflow: hidden;
+    min-width: 170px;
+  }
+
 }

@@ -18,6 +18,7 @@ export class RollsComponent implements OnInit {
   userChar: Character;
   userLoaded: boolean;
   generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
+  skillSections;
 
   chats: IChat[] = [];
   message: string;
@@ -60,6 +61,18 @@ export class RollsComponent implements OnInit {
     this.subterfugeSkills = this.userChar.secondary_stats.filter(x => x.category === 'subterfuge');
     this.creativeSkills = this.userChar.secondary_stats.filter(x => x.category === 'creative');
     this.specialSkills = this.userChar.secondary_stats.filter(x => x.category === 'special');
+
+    this.skillSections = [
+      { sectionName: "Athletic", sectionSkills: this.athleticSkills},
+      { sectionName: "Vigor", sectionSkills: this.vigorSkills},
+      { sectionName: "Perception", sectionSkills: this.perceptionSkills},
+      { sectionName: "Intellectual", sectionSkills: this.intellectualSkills},
+      { sectionName: "Social", sectionSkills: this.socialSkills},
+      { sectionName: "Subterfuge", sectionSkills: this.subterfugeSkills},
+      { sectionName: "Creative", sectionSkills: this.creativeSkills},
+      { sectionName: "Special", sectionSkills: this.specialSkills},
+      ];
+
   }
 
   rollGeneral(statValue: number) {
@@ -67,13 +80,18 @@ export class RollsComponent implements OnInit {
     alert('Total : ' + (roll + statValue) + ', rolled a ' + roll);
   }
 
-  rollSkill(statValue: number) {
+  rollSkill(skill: SecondaryStat) {
+    let statValue = this.computeSkillTotal(skill);
     let result = [];
     let dice = Math.floor(Math.random() * 100 + 1);
+
+    let isCritFail = false;
+    let isCritSuccess = false;
+
     if (dice === 1 || dice === 2 || (dice === 3 && statValue < 200) ) {
-      alert('Epic fail');
+      isCritFail = true;
     } else if (dice === 100) {
-      alert('Automatic success');
+      isCritSuccess = true;
     }
 
     while (/*this.userChar.disadvantages.indexOf('banefulDestiny') === -1 && */dice >= 90) {
@@ -85,7 +103,7 @@ export class RollsComponent implements OnInit {
     let total = statValue;
     result.forEach(x => total = total + x);
 
-    alert('Total result : ' + total + ', rolled : ' + result);
+    this.sendMessage('Rolled ' + skill.name + ' for : ' + total + ', (' + result + ')', isCritFail, true);
 
   }
 
@@ -107,9 +125,9 @@ export class RollsComponent implements OnInit {
     });
   }
 
-  sendMessage(message: string) {
+  sendMessage(message: string, isCritFail: boolean, isCritSuccess: boolean) {
     this.sending = true;
-    this.chatService.sendMessage(message)
+    this.chatService.sendMessage(message, isCritFail, isCritSuccess)
      .subscribe(resp => {
         this.message = undefined;
         this.sending = false;

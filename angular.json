@@ -73,6 +73,7 @@
             "scripts": [],
             "styles": [
               "src/styles.scss",
+              "src/app/rolls/rolls.component.scss",
               "node_modules/firebaseui/dist/firebaseui.css"
             ],
             "assets": [
