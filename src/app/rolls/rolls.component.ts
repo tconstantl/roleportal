@@ -103,7 +103,7 @@ export class RollsComponent implements OnInit {
     let total = statValue;
     result.forEach(x => total = total + x);
 
-    this.sendMessage('Rolled ' + skill.name + ' for : ' + total + ', (' + result + ')', isCritFail, true);
+    this.sendMessage('Rolled ' + skill.name + ' for : ' + total + ', (' + result + ')', isCritFail, isCritSuccess);
 
   }
 

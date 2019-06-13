@@ -127,5 +127,18 @@
     overflow: hidden;
     min-width: 170px;
   }
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+    text-align: center;
+    vertical-align: center;
+  }
+
+  .mat-list-item {
+    height: 30px;
+  }
+
+  .skill-list-row {
+    height: 25;
+  }
 
 }

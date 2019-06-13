@@ -51,9 +51,9 @@
           <div *ngFor="let section of skillSections">
             <h3 mat-subheader>{{section.sectionName}}</h3>
             <mat-list-item *ngFor="let skill of section.sectionSkills">
-              <div fxLayout="row" fxLayoutAlign="start center" class="test-100">
+              <div fxLayout="row" fxLayoutAlign="start center" class="skill-list-row">
                 <button (click)="rollSkill(skill)" mat-icon-button><mat-icon mat-list-icon>casino</mat-icon></button>
-                <p mat-line>{{skill.name}} : {{computeSkillTotal(skill)}}</p>
+                <div  mat-line>{{skill.name}} : {{computeSkillTotal(skill)}}</div>
               </div>
             </mat-list-item>
             <mat-divider></mat-divider>
