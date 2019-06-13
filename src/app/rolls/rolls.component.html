@@ -28,22 +28,32 @@
     </mat-card>
   </div>
   <mat-card fxFlex="1 1 35vw" fxLayout="column" fxLayoutAlign="start stretch">
-    <mat-card fxFlex="5 5 auto" fxLayout="row" fxLayoutAlign="start stretch">
-      <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-        <mat-card fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-          <mat-card fxFlex="2 2 auto">stats</mat-card>
+    <div fxFlex="5 5 auto" fxLayout="row" fxLayoutAlign="start stretch">
+      <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+        <div fxFlex="3 3 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+	  <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+	    <div fxFlex="1 1 auto">Stats</div>
+            <div fxFlex="10 10 auto" fxLayout="row" fxLayoutAlign="space-evenly-stretch">
+	      <mat-card fxFlex="1 1 auto">phys</mat-card>
+	      <mat-card fxFlex="1 1 auto">ment</mat-card>
+	    </div>
+	  </mat-card>
           <mat-card fxFlex="3 3 auto">initiative</mat-card>
-        </mat-card>
-        <mat-card fxFlex="1 1 auto" > attaque parade esquive</mat-card>
-        <mat-card fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+        </div>
+	<div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+          <mat-card fxFlex="1 1 auto">attaque</mat-card>
+          <mat-card fxFlex="1 1 auto">esquive</mat-card>
+	  <mat-card fxFlex="1 1 auto">parade</mat-card>
+        </div>
+        <div fxFlex="3 3 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
           <mat-card fxFlex="1 1 auto">hp fatigue ki statut</mat-card>
           <mat-card fxFlex="1 1 auto"> resistances et presence</mat-card>
-        </mat-card>
-        <mat-card fxFlex="3 3 auto" fxLayout="row wrap" fxLayoutAlign="start stretch">
+        </div>
+        <div fxFlex="6 6 auto" fxLayout="row wrap" fxLayoutAlign="start stretch">
           <mat-card fxFlex="1 1 auto">equipement et or</mat-card>
           <mat-card fxFlex="1 1 auto">techniques</mat-card>
-        </mat-card>
-      </mat-card>
+        </div>
+      </div>
       <mat-card fxFlex="1 1 auto" class="stats-and-skills">
         <mat-card-header><h3>Secondary Skills</h3></mat-card-header>
         <mat-list dense>
@@ -59,6 +69,6 @@
           </div>
         </mat-list>
       </mat-card>
-    </mat-card>
+    </div>
   </mat-card>
 </div>
