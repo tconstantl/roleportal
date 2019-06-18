@@ -42,6 +42,7 @@ import { RollsComponent } from './rolls/rolls.component';
 import {ChatService} from './shared/services/chat.service';
 import {PusherService} from './shared/services/pusher.service';
 import { HttpClientModule} from '@angular/common/http';
+import { WeaponDialogComponent } from './weapon-dialog/weapon-dialog.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -63,7 +64,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MainNavComponent,
     BaseStatsDialogComponent,
     SkillDialogComponent,
-    RollsComponent
+    RollsComponent,
+    WeaponDialogComponent
   ],
   imports: [
     BrowserModule,

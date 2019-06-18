@@ -22,6 +22,19 @@ export class Character {
     ];
   secondary_stats: SecondaryStat[] = [];
   disadvantages: string[];
+  combat_module: {
+    attack: CombatStat,
+    block: CombatStat,
+    dodge: CombatStat,
+    weapons: Weapon[],
+    equippedWeapon: Weapon
+  } = {
+    attack: new CombatStat('attack', 'dexterity'),
+    block: new CombatStat('block', 'dexterity'),
+    dodge: new CombatStat('dodge', 'agility'),
+    weapons: [],
+    equippedWeapon: null
+  };
 }
 export class BaseStat {
   id: string;
@@ -72,5 +85,24 @@ export function computeMods(char: Character) {
   let refTab = [-30, -20, -10, -5, 0, +5, +5, +10, +10, +15, +20, +20, +25, +25, +30, +35, +35, +40, +40, +45];
   for (let i = 0; i < char.base_stats.length; i++) {
     char.base_stats[i].mod = refTab[char.base_stats[i].actual - 1];
+  }
+}
+
+export class CombatStat extends SecondaryStat {
+  constructor(name: string, bsm: string) {
+    super('Combat');
+    this.name = name;
+    this.baseStatMod = bsm;
+  }
+}
+
+export class Weapon {
+  attack = 0;
+  block = 0;
+  name = '';
+  speed = 0;
+
+  constructor (name: string) {
+    this.name = name;
   }
 }

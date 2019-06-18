@@ -37,12 +37,12 @@ export class SkillDialogComponent implements OnInit {
 
   ngOnInit() {
     this.skillForm = this.fb.group({
-      name: new FormControl(this.data.name, Validators.required),
+      name: new FormControl({value: this.data.name, disabled: this.data.category === 'combat'}, Validators.required),
       base: new FormControl(this.data.base, Validators.required),
       special: new FormControl(this.data.special, Validators.required),
       class: new FormControl(this.data.class, Validators.required),
       upgradeCost: new FormControl(this.data.upgradeCost, Validators.required),
-      modMultiplier: new FormControl(this.data.modMultiplier, Validators.required),
+      modMultiplier: new FormControl({value: this.data.modMultiplier, disabled: this.data.category === 'combat'}, Validators.required),
       baseStatMod: new FormControl(this.data.baseStatMod, Validators.required),
       category: new FormControl({value: this.data.category, disabled: true})
     });

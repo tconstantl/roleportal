@@ -22,11 +22,12 @@ export class PresentationComponent implements OnInit {
   newguyForm: FormGroup;
   classes = [];
   creating: boolean;
-  generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
+  generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills; charWeapons;
   displayedGeneral: string[] = ['id', 'base', 'actual', 'mod'];
   displayedSkills: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total', 'edit', 'del' ];
+  displayedWeapons: string[] = ['name', 'attack', 'block', 'speed'];
 
-  showStatsSkills: boolean;
+  showStatsSkills: boolean; showCombatModule: boolean;
 
 
   constructor(private es: ElasticsearchService, private cd: ChangeDetectorRef, private as: AuthService, private fb: FormBuilder, private router: Router, private snackbar: MatSnackBar, public dialog: MatDialog) {
@@ -89,7 +90,7 @@ export class PresentationComponent implements OnInit {
         console.log(result);
         this.openSnackBar('Character updated', 'Ok tamer');
       }, error => {
-        this.openSnackBar('Oopsies, we made a doozies', "':'()");
+        this.openSnackBar('Oopsies, we made a doozies', ':\'(');
         console.error(error);
       });
     } else {
@@ -97,7 +98,7 @@ export class PresentationComponent implements OnInit {
         console.log(result);
         this.openSnackBar('Character created', 'Ok tamer');
       }, error => {
-        this.openSnackBar('Oopsies, we made a doozies', "':'()");
+        this.openSnackBar('Oopsies, we made a doozies', ':\'(');
         console.error(error);
       });
     }
@@ -127,6 +128,7 @@ export class PresentationComponent implements OnInit {
     this.subterfugeSkills = this.userChar.secondary_stats.filter(x => x.category === 'subterfuge');
     this.creativeSkills = this.userChar.secondary_stats.filter(x => x.category === 'creative');
     this.specialSkills = this.userChar.secondary_stats.filter(x => x.category === 'special');
+    this.charWeapons = this.userChar.combat_module.weapons;
   }
 
   openBaseStatDialog() {
@@ -143,7 +145,7 @@ export class PresentationComponent implements OnInit {
        this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
          this.snackbar.open('General stats updated', 'Ok', { duration: 2000});
        }, error => {
-         this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+         this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
          console.error(error);
        });
       } else {
@@ -166,7 +168,7 @@ export class PresentationComponent implements OnInit {
           this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
             this.snackbar.open('Skill updated', 'Ok', { duration: 2000});
           }, error => {
-            this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+            this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
             console.error(error);
           });
         } else {
@@ -189,7 +191,7 @@ export class PresentationComponent implements OnInit {
           this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
             this.snackbar.open('Skill created', 'Ok', { duration: 2000});
           }, error => {
-            this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+            this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
             console.error(error);
           });
         } else {
@@ -208,7 +210,7 @@ export class PresentationComponent implements OnInit {
     this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
       this.snackbar.open('Skill deleted', 'Ok', { duration: 2000});
     }, error => {
-      this.snackbar.open('Oopsies, we made a doozies', "':'()", { duration: 2000});
+      this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
       console.error(error);
     });
     this.loadStats();
@@ -216,6 +218,10 @@ export class PresentationComponent implements OnInit {
 
   getStatMod(id: string) {
     return this.userChar.base_stats.find(x => x.id === id).mod;
+  }
+
+  computeSkillTotal (element: SecondaryStat) {
+    return element.class + element.special + this.getStatMod(element.baseStatMod) * element.modMultiplier + element.base;
   }
 }
 
