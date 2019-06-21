@@ -62,6 +62,9 @@ export class RollsComponent implements OnInit {
     this.creativeSkills = this.userChar.secondary_stats.filter(x => x.category === 'creative');
     this.specialSkills = this.userChar.secondary_stats.filter(x => x.category === 'special');
 
+    this.physStats = this.generalStats.filter(x => x.type === 'physical');
+    this.intelStats = this.generalStats.filter(x => x.type === 'intellect');
+
     this.skillSections = [
       { sectionName: "Athletic", sectionSkills: this.athleticSkills},
       { sectionName: "Vigor", sectionSkills: this.vigorSkills},
