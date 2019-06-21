@@ -1,3 +1,25 @@
-<p>
-  weapon-dialog works!
-</p>
+<h1 mat-dialog-title>Modifying a skill</h1>
+<div mat-dialog-content>
+  <form [formGroup]="weaponForm" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="12px">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Athleticism" formControlName="name" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Attack</mat-label>
+      <input matInput placeholder="0" formControlName="attack" type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Block</mat-label>
+      <input matInput placeholder="0" formControlName="block" type="number" >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Speed</mat-label>
+      <input matInput placeholder="0" formControlName="speed" type="number" >
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSaveClick()" [disabled] = "!weaponForm.valid">Save</button>
+</div>

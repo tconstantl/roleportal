@@ -1,13 +1,14 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ElasticsearchService} from '../shared/services/elasticsearch.service';
 import {AuthService} from '../shared/services/auth.service';
 import {User} from 'firebase';
-import {Character, resetActualStats, SecondaryStat} from '../shared/models/character';
+import {Character, resetActualStats, SecondaryStat, Weapon} from '../shared/models/character';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTable} from '@angular/material';
 import {BaseStatsDialogComponent} from './base-stats-dialog/base-stats-dialog.component';
 import {SkillDialogComponent} from './skill-dialog/skill-dialog.component';
+import {WeaponDialogComponent} from './weapon-dialog/weapon-dialog.component';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class PresentationComponent implements OnInit {
   displayedGeneral: string[] = ['id', 'base', 'actual', 'mod'];
   displayedSkills: string[] = ['name', 'base', 'mod', 'spe', 'class', 'total', 'edit', 'del' ];
   displayedWeapons: string[] = ['name', 'attack', 'block', 'speed'];
+
+  @ViewChild(MatTable) table: MatTable<any>;
 
   showStatsSkills: boolean; showCombatModule: boolean;
 
@@ -214,6 +217,54 @@ export class PresentationComponent implements OnInit {
       console.error(error);
     });
     this.loadStats();
+  }
+
+  openWeaponDialog(weapon: Weapon) {
+    if (weapon) {
+      const dialogRef = this.dialog.open(WeaponDialogComponent, {
+        data: weapon
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          Object.assign(weapon, result);
+          const payload = {
+            combat_module: this.userChar.combat_module
+          };
+          this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+            this.snackbar.open('Weapon updated', 'Ok', { duration: 2000});
+          }, error => {
+            this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
+            console.error(error);
+          });
+        } else {
+          this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+        }
+      });
+    } else {
+      let newWeapon = new Weapon('');
+      const dialogRef = this.dialog.open(WeaponDialogComponent, {
+        data: newWeapon
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          Object.assign(newWeapon, result);
+          this.userChar.combat_module.weapons.push(newWeapon);
+          this.charWeapons = this.userChar.combat_module.weapons;
+          this.table.renderRows();
+          const payload = {
+            combat_module: this.userChar.combat_module
+          };
+          this.es.updateDocument('characters', payload, this.user.uid).then((result) => {
+            this.snackbar.open('Weapon created', 'Ok', { duration: 2000});
+          }, error => {
+            this.snackbar.open('Oopsies, we made a doozies', ':\'(', { duration: 2000});
+            console.error(error);
+          });
+        } else {
+          this.snackbar.open('No changes made', 'Ok', { duration: 2000});
+        }
+      });
+    }
   }
 
   getStatMod(id: string) {

@@ -594,33 +594,36 @@
         <button mat-raised-button matTooltip="Edit block" (click)="openSkillDialog(userChar.combat_module.block, 'combat')"><b>Block</b> : {{computeSkillTotal(userChar.combat_module.block)}}</button>
         <button mat-raised-button matTooltip="Edit dodge" (click)="openSkillDialog(userChar.combat_module.dodge, 'combat')"><b>Dodge</b> : {{computeSkillTotal(userChar.combat_module.dodge)}}</button>
       </div>
-      <mat-table fxFlex="1 1 30%" [dataSource]="charWeapons">
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef class="idColumn">Weapon's Name</mat-header-cell>
-          <mat-cell mat-cell *matCellDef="let element" class="idColumn"><strong>{{element.name | titlecase }}</strong> </mat-cell>
-        </ng-container>
+      <div fxFlex="1 1 50%" fxLayout="column" fxLayoutAlign="start  stretch">
+        <h4>Weapons <button mat-icon-button (click)="openWeaponDialog(undefined)"><mat-icon color="primary">add</mat-icon></button></h4>
+        <mat-table  [dataSource]="charWeapons">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef class="idColumn">Weapon's Name</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let element" class="idColumn"><strong>{{element.name | titlecase }}</strong> </mat-cell>
+          </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="attack">
-          <mat-header-cell  *matHeaderCellDef class="numberColumn">Attack</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="numberColumn"> {{element.attack}} </mat-cell>
-        </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="attack">
+            <mat-header-cell  *matHeaderCellDef class="numberColumn">Attack</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="numberColumn"> {{element.attack}} </mat-cell>
+          </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="block">
-          <mat-header-cell *matHeaderCellDef  class="numberColumn">Block</mat-header-cell>
-          <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.block}} </mat-cell>
-        </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="block">
+            <mat-header-cell *matHeaderCellDef  class="numberColumn">Block</mat-header-cell>
+            <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.block}} </mat-cell>
+          </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="speed">
-          <mat-header-cell *matHeaderCellDef  class="numberColumn">Speed</mat-header-cell>
-          <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.speed}} </mat-cell>
-        </ng-container>
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="speed">
+            <mat-header-cell *matHeaderCellDef  class="numberColumn">Speed</mat-header-cell>
+            <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.speed}} </mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedWeapons"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedWeapons;"></mat-row>
-      </mat-table>
+          <mat-header-row *matHeaderRowDef="displayedWeapons"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedWeapons;"></mat-row>
+        </mat-table>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
