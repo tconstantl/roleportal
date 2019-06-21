@@ -18,7 +18,7 @@ export class RollsComponent implements OnInit {
   userChar: Character;
   userLoaded: boolean;
   generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
-  skillSections;
+  skillSections;physStats;intelStats;
 
   chats: IChat[] = [];
   message: string;
