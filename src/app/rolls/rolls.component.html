@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="page-view rolls-view">
-  <div fxFlex="3 3 55vw" fxLayout="column" fxLayoutAlign="space-between stretch">
+  <div fxFlex="1 1 55vw" fxLayout="column" fxLayoutAlign="space-between stretch">
     <mat-card class="blue" fxFlex="0 0 35%"></mat-card>
     <mat-card fxFlex="0 0 65%" class="chats">
       <mat-card-header fxLayout="row" fxLayoutAlign="center center">
@@ -27,13 +27,13 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <mat-card fxFlex="2 2 45vw" fxLayout="column" fxLayoutAlign="start stretch">
-    <div fxFlex="3 3 auto" fxLayout="row" fxLayoutAlign="start stretch">
+  <mat-card fxFlex="1 1 45vw" fxLayout="column" fxLayoutAlign="start stretch">
+    <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start stretch">
       <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-        <div fxFlex="3 3 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-	  <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-	    <div fxFlex="1 1 auto">Stats</div>
-            <div fxFlex="10 10 auto" fxLayout="row" fxLayoutAlign="space-evenly-stretch">
+        <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+	  <mat-card fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+	    <div fxFlex="0 0 auto">Stats</div>
+            <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly-stretch">
 	      <div fxFlex="1 1 auto" class="stats">
 		<mat-list dense>
 		  <mat-list-item *ngFor="let stat of physStats">
@@ -58,16 +58,21 @@
 	  </mat-card>
           <mat-card fxFlex="1 1 auto">initiative</mat-card>
         </div>
-	<div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+	<div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
           <mat-card fxFlex="1 1 auto">attaque</mat-card>
           <mat-card fxFlex="1 1 auto">esquive</mat-card>
 	  <mat-card fxFlex="1 1 auto">parade</mat-card>
         </div>
-        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-          <mat-card fxFlex="1 1 auto">hp fatigue ki statut</mat-card>
+        <div fxFlex="0 1 40%" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+          <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+	    <div fxFlex="1 1 auto">Health</div>
+	    <div fxFlex="1 1 auto">Fatigue</div>
+	    <div fxFlex="1 1 auto">Ki points</div>
+	    <div fxFlex="1 1 auto">Status</div>
+	  </mat-card>
           <mat-card fxFlex="1 1 auto"> resistances et presence</mat-card>
         </div>
-        <div fxFlex="1 1 auto" fxLayout="row wrap" fxLayoutAlign="start stretch">
+        <div fxFlex="1 1 60%" fxLayout="row wrap" fxLayoutAlign="start stretch">
           <mat-card fxFlex="1 1 auto">equipement et or</mat-card>
           <mat-card fxFlex="1 1 auto">techniques</mat-card>
         </div>
