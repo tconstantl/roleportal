@@ -18,7 +18,7 @@ export class RollsComponent implements OnInit {
   userChar: Character;
   userLoaded: boolean;
   generalStats; athleticSkills; vigorSkills; perceptionSkills; intellectualSkills; socialSkills; subterfugeSkills; creativeSkills; specialSkills;
-  skillSections;
+  skillSections;physStats;intelStats;
 
   chats: IChat[] = [];
   message: string;
@@ -61,6 +61,9 @@ export class RollsComponent implements OnInit {
     this.subterfugeSkills = this.userChar.secondary_stats.filter(x => x.category === 'subterfuge');
     this.creativeSkills = this.userChar.secondary_stats.filter(x => x.category === 'creative');
     this.specialSkills = this.userChar.secondary_stats.filter(x => x.category === 'special');
+
+    this.physStats = this.generalStats.filter(x => x.type === 'physical');
+    this.intelStats = this.generalStats.filter(x => x.type === 'intellect');
 
     this.skillSections = [
       { sectionName: "Athletic", sectionSkills: this.athleticSkills},
