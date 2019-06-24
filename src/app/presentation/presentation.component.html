@@ -67,522 +67,525 @@
     </mat-card-actions>
   </mat-card>
   <mat-card fxFlex *ngIf="!loadingChar">
-    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="6px" *ngIf="showStatsSkills">
-      <mat-card fxFlex="1 0 340px" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
-        <mat-card-header>
-          <mat-card-title><h4>General stats</h4></mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="generalStats">
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="actual">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Actual</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.actual}} </mat-cell>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.mod}} </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedGeneral"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedGeneral;"></mat-row>
-          </mat-table>
-
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Athletics skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'athletic')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="athleticSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
-
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Vigor skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'vigor')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="vigorSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="6px" *ngIf="showStatsSkills">
+      <div fxFlex="1 0 auto" fxLayout="column">
+        <mat-card fxFlex="1 0 auto" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
+          <mat-card-header>
+            <mat-card-title><h4>General stats</h4></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="generalStats">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="actual">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Actual</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.actual}} </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.mod}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedGeneral"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedGeneral;"></mat-row>
+            </mat-table>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex="1 0 auto" fxLayout="column">
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Athletics skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'athletic')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="athleticSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
+
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Vigor skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'vigor')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="vigorSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Perception skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'perception')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="perceptionSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Perception skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'perception')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="perceptionSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
 
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Intellectual skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'intellectual')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="intellectualSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
 
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Intellectual skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'intellectual')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="intellectualSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Social skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'social')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="socialSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Subterfuge skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'subterfuge')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="subterfugeSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Social skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'social')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="socialSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
 
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Creative skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'creative')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="creativeSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
 
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Subterfuge skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'subterfuge')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="subterfugeSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Creative skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'creative')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="creativeSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="2 0 auto" class="secondary-skills">
+          <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+            <mat-card-title><h4>Special skills</h4></mat-card-title>
+            <div class="spacer"></div>
+            <button mat-icon-button (click)="openSkillDialog(undefined, 'special')"><mat-icon color="primary">add</mat-icon></button>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-table [dataSource]="specialSkills">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="base">
+                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="spe">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="class">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="total">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
+              </ng-container>
 
 
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="del">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
+                <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
+            </mat-table>
 
-        </mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="2 0 580px" class="secondary-skills">
-        <mat-card-header fxLayout="row" fxLayoutAlign="start center">
-          <mat-card-title><h4>Special skills</h4></mat-card-title>
-          <div class="spacer"></div>
-          <button mat-icon-button (click)="openSkillDialog(undefined, 'special')"><mat-icon color="primary">add</mat-icon></button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-table [dataSource]="specialSkills">
-            <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-              <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.name | titlecase }}</strong> </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="base">
-              <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-              <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="mod">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{getStatMod(element.baseStatMod) * element.modMultiplier}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="spe">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Spe</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.special}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="class">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn">Class</mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.class}} </mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"><strong>Total</strong></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><strong>{{element.class + element.special + getStatMod(element.baseStatMod) * element.modMultiplier + element.base}}</strong></mat-cell>
-            </ng-container>
-
-
-            <ng-container matColumnDef="del">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="deleteSkill(element)"><mat-icon color="primary">delete</mat-icon></button></mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="edit">
-              <mat-header-cell *matHeaderCellDef  class="numberColumn"></mat-header-cell>
-              <mat-cell *matCellDef="let element"  class="numberColumn"><button mat-icon-button (click)="openSkillDialog(element)"><mat-icon color="primary">edit</mat-icon></button></mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedSkills"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedSkills;"></mat-row>
-          </mat-table>
-
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-
   </mat-card>
 </div>
