@@ -69,40 +69,61 @@
   <mat-card fxFlex *ngIf="!loadingChar">
     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="6px" *ngIf="showStatsSkills">
       <div fxFlex="1 0 auto" fxLayout="column">
-        <mat-card fxFlex="1 0 auto" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
-          <mat-card-header>
-            <mat-card-title><h4>General stats</h4></mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-table [dataSource]="generalStats">
-              <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
-                <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
-              </ng-container>
+        <div fxFlex="1 0 auto" fxLayout="row">
+          <mat-card fxFlex="1 0 auto" (click)="openBaseStatDialog()" matTooltip="Click to modify" class="general-stats">
+            <mat-card-header>
+              <mat-card-title><h4>General stats</h4></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-table [dataSource]="generalStats">
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef class="idColumn"></mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element" class="idColumn"> <strong>{{element.id | titlecase }}</strong> </mat-cell>
+                </ng-container>
 
-              <!-- Name Column -->
-              <ng-container matColumnDef="base">
-                <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
-                <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
-              </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="base">
+                  <mat-header-cell  *matHeaderCellDef class="numberColumn">Base</mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="numberColumn"> {{element.base}} </mat-cell>
+                </ng-container>
 
-              <!-- Weight Column -->
-              <ng-container matColumnDef="actual">
-                <mat-header-cell *matHeaderCellDef  class="numberColumn">Actual</mat-header-cell>
-                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.actual}} </mat-cell>
-              </ng-container>
+                <!-- Weight Column -->
+                <ng-container matColumnDef="actual">
+                  <mat-header-cell *matHeaderCellDef  class="numberColumn">Actual</mat-header-cell>
+                  <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.actual}} </mat-cell>
+                </ng-container>
 
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="mod">
-                <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
-                <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.mod}} </mat-cell>
-              </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="mod">
+                  <mat-header-cell *matHeaderCellDef  class="numberColumn">Mod</mat-header-cell>
+                  <mat-cell *matCellDef="let element"  class="numberColumn"> {{element.mod}} </mat-cell>
+                </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedGeneral"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedGeneral;"></mat-row>
-            </mat-table>
+                <mat-header-row *matHeaderRowDef="displayedGeneral"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedGeneral;"></mat-row>
+              </mat-table>
 
-          </mat-card-content>
+            </mat-card-content>
+          </mat-card>
+          <div fxFlex="1 0 auto" fxLayout="column">
+            <mat-card fxFlex="2 0 auto">Advantages</mat-card>
+            <div fxFlex="1 0 auto" fxLayout="row">
+              <mat-card fxFlex="1 0 50%">Life Points</mat-card>
+              <mat-card fxFlex="1 0 50%">Fatigue</mat-card>
+            </div>
+            <div fxFlex="1 0 auto" fxLayout="row">
+              <mat-card fxFlex="1 0 50%">Wear Armor</mat-card>
+              <mat-card fxFlex="1 0 50%">Movement</mat-card>
+            </div>
+          </div>
+        </div>
+        <mat-card fxFlex="1 1 auto" fxLayout="column">
+          <mat-card-header><h3>Initiative</h3></mat-card-header>
+          <div fxFlex="1 1 auto">Mains nues</div>
+          <div fxFlex="1 1 auto">Armes 1</div>
+          <div fxFlex="1 1 auto">Armes 2</div>
+          <div fxFlex="1 1 auto">Armes 3</div>
+          <div fxFlex="1 1 auto">Armes 4</div>
         </mat-card>
       </div>
       <div fxFlex="1 0 auto" fxLayout="column">
