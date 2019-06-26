@@ -31,49 +31,59 @@
     <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start stretch">
       <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
         <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
-	  <mat-card fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-	    <div fxFlex="0 0 auto">Stats</div>
+          <mat-card fxFlex="0 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+	          <div fxFlex="0 0 auto">Stats</div>
             <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly-stretch">
-	      <div fxFlex="1 1 auto" class="stats">
-		<mat-list dense>
-		  <mat-list-item *ngFor="let stat of physStats">
+	            <div fxFlex="1 1 auto" class="stats">
+		            <mat-list dense>
+		              <mat-list-item *ngFor="let stat of physStats">
                     <div fxLayout="row" fxLayoutAlign="start center" class="stats-list-row">
                       <button (click)="rollGeneral(stat)" mat-icon-button><mat-icon mat-list-icon>casino</mat-icon></button>
                       <div  mat-line>{{stat.id}} : {{stat.base}}</div>
                     </div>
                   </mat-list-item>
-		</mat-list>
-	      </div>
-	      <div fxFlex="1 1 auto" class="stats">
-		<mat-list dense>
-		  <mat-list-item *ngFor="let stat of intelStats">
+		            </mat-list>
+	            </div>
+	            <div fxFlex="1 1 auto" class="stats">
+		            <mat-list dense>
+		              <mat-list-item *ngFor="let stat of intelStats">
                     <div fxLayout="row" fxLayoutAlign="start center" class="stats-list-row">
                       <button (click)="rollGeneral(stat)" mat-icon-button><mat-icon mat-list-icon>casino</mat-icon></button>
                       <div  mat-line>{{stat.id}} : {{stat.base}}</div>
                     </div>
                   </mat-list-item>
-		</mat-list>
-	      </div>
-	    </div>
-	  </mat-card>
+		           </mat-list>
+	           </div>
+	          </div>
+	        </mat-card>
           <mat-card fxFlex="1 1 auto">initiative</mat-card>
         </div>
-	<div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
+	      <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="space-evenly stretch">
           <mat-card fxFlex="1 1 auto">attaque</mat-card>
           <mat-card fxFlex="1 1 auto">esquive</mat-card>
-	  <mat-card fxFlex="1 1 auto">parade</mat-card>
+          <mat-card fxFlex="1 1 auto">parade</mat-card>
         </div>
         <div fxFlex="0 1 40%" fxLayout="row" fxLayoutAlign="space-evenly stretch">
           <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-	    <div fxFlex="1 1 auto">Health</div>
-	    <div fxFlex="1 1 auto">Fatigue</div>
-	    <div fxFlex="1 1 auto">Ki points</div>
-	    <div fxFlex="1 1 auto">Status</div>
-	  </mat-card>
+            <div fxFlex="1 1 auto">Health</div>
+            <div fxFlex="1 1 auto">Fatigue</div>
+            <div fxFlex="1 1 auto">Ki points</div>
+            <div fxFlex="1 1 auto">Status</div>
+          </mat-card>
           <mat-card fxFlex="1 1 auto"> resistances et presence</mat-card>
         </div>
         <div fxFlex="1 1 60%" fxLayout="row wrap" fxLayoutAlign="start stretch">
-          <mat-card fxFlex="1 1 auto">equipement et or</mat-card>
+          <mat-card fxFlex="1 1 auto" fxLayout="column">
+            <div fxFlex="0 0 auto">equipement</div>
+            <div fxFlex="1 1 auto" class="gold">
+              <mat-card fxFlex="0 2 auto" fxLayout="column" class="piece">
+                <div fxFlex="0 0 auto">Or</div>
+                <mat-card fxFlex="0 0 50px">PO</mat-card>
+                <mat-card fxFlex="0 0 50px">PA</mat-card>
+                <mat-card fxFlex="0 0 50px">PC</mat-card>
+              </mat-card>
+            </div>
+          </mat-card>
           <mat-card fxFlex="1 1 auto">techniques</mat-card>
         </div>
       </div>
