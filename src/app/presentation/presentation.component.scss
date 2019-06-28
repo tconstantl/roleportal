@@ -1,3 +1,15 @@
+.side {
+  width: 3%;
+}
+
+.background {
+  background-color: black;
+  padding: 6px;
+}
+
+.general-stats {
+}
+
 .stat-container {
   text-align: center;
 
@@ -11,11 +23,17 @@
 }
 
 .idColumn {
-  flex: 2 0 96px ;
+  padding-left: 2%;
+  padding-right: 2%;
+  flex: 0 0 96px ;
+  text-align: center;
+  justify-content: center;
 }
 
 .numberColumn {
-  flex: 1 0 8px;
+  flex: 1 0 35px;
+  text-align: center;
+  justify-content: center;
 }
 
 .skill-row {

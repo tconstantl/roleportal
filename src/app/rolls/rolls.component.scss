@@ -127,6 +127,7 @@
     overflow: hidden;
     min-width: 170px;
   }
+
   .mat-list-icon {
     color: rgba(0, 0, 0, 0.54);
     text-align: center;
@@ -139,6 +140,25 @@
 
   .skill-list-row {
     height: 25;
+  }
+
+  .stats {
+    padding: 3px;
+    overflow: hidden;
+    min-width: 100px;
+  }
+
+  .stats-list-row {
+    height: 30;
+  }
+
+  .gold {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .piece {
+    padding: 5px;
   }
 
 }
