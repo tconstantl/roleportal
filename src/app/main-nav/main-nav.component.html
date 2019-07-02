@@ -1,14 +1,16 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="'over'"
-      [opened]="false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="">Home</a>
-      <a mat-list-item routerLink="/rolls" *ngIf="loggedIn">Rolls</a>
-      <a mat-list-item routerLink="/presentation" *ngIf="loggedIn">Character</a>
-    </mat-nav-list>
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="'over'"
+               [opened]="false">
+    <mat-card>
+      <mat-toolbar>Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="">Home</a>
+        <a mat-list-item routerLink="/rolls" *ngIf="loggedIn">Rolls</a>
+        <a mat-list-item routerLink="/presentation" *ngIf="loggedIn">Character</a>
+      </mat-nav-list>
+    </mat-card>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary" fxLayoutGap="12px">
@@ -22,7 +24,7 @@
       <fa-icon [icon]="faDice20"></fa-icon>
       <span>Role Portal</span>
       <span class="spacer"></span>
-<!--      <button (click)="connectToChat()" *ngIf="loggedIn" [disabled]="!userLoaded" mat-raised-button >Connect to the chat</button>-->
+      <!--      <button (click)="connectToChat()" *ngIf="loggedIn" [disabled]="!userLoaded" mat-raised-button >Connect to the chat</button>-->
       <button mat-raised-button *ngIf="loggedIn" (click)="logout()">Logout</button>
     </mat-toolbar>
     <div  class="view-container">
