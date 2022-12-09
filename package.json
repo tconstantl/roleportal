@@ -44,7 +44,7 @@
     "core-js": "^2.6.5",
     "elasticsearch": "^16.0.0",
     "elasticsearch-browser": "latest",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "firebase": "^6.0.2",
     "firebaseui": "^3.6.1",
     "firebaseui-angular": "^3.4.1",
